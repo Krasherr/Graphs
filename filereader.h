@@ -1,7 +1,5 @@
-#ifndef FILEREADER
-#define FILEREADER
-
-#endif // FILEREADER
+#ifndef FILEREADER_H
+#define FILEREADER_H
 
 #include <string>
 #include <QFileDialog>
@@ -10,26 +8,19 @@
 #include <QMessageBox>
 #include <QTextStream>
 
-using namespace std;
-std::list<std::string> chooseFile(int argc, char *argv[]){
+//std::list<std::string> chooseFile(int argc, char *argv[]){
+class FileReader {
 
-    QApplication app(argc,argv);
+public:
+    FileReader();
+    ~FileReader();
+
+    void chooseFile();
+
+private:
     QString fileName;
-    fileName = QFileDialog::getOpenFileName(0,"Open File",QDir::currentPath(),
-          "All files (*.*)",
-              new QString("All files (*.*)"));
-
-    QFile inputFile(fileName);
     std::list<std::string> fileList;
-    if (inputFile.open(QIODevice::ReadOnly))
-    {
-       QTextStream in(&inputFile);
-       while (!in.atEnd())
-       {
-          fileList.push_back(in.readLine().toStdString());
-          cout << fileList.back() << endl;
-       }
-       inputFile.close();
-    }
-    return fileList;
-}
+
+
+};
+#endif // FILEREADER

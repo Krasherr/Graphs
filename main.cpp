@@ -9,7 +9,8 @@
 #include <boost/dynamic_bitset.hpp>
 #include <QMessageBox>
 #include <QTextStream>
-#include "filereader.h"
+#include <QDebug>
+//#include "filereader.h"
 
 using namespace std;
 class Graph

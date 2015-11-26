@@ -11,9 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Graphs
 TEMPLATE = app
 
-
 SOURCES += main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    filereader.cpp
 
 HEADERS  += \
     filereader.h \
