@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "filereader.h"
+#include "QInputDialog"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->pushButton->setText("Wczytaj plik");
     connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(handleButton()));
+    ui->pushButton_2->setText("Wczytaj liczbę");
+    connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(inputText()));
 }
 
 MainWindow::~MainWindow()
@@ -19,5 +22,24 @@ MainWindow::~MainWindow()
 void MainWindow::handleButton()
 {
     FileReader fl;
+
     fl.chooseFile();
+
+    std::list<std::string> myList = fl.getList();
+
+    std::cout << myList.back() << '\n';
+   // for (std::list<std::string>::iterator it = myList.begin(); it!=myList.end();++it){
+   // std::cout << *it << endl;
+  //  }
+
+}
+
+void MainWindow::inputText()
+{
+    bool ok;
+    varU = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
+                                 tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
+  //  if (ok)
+      //  integerLabel->setText(tr("%1%").arg(varU));
+
 }

@@ -18,8 +18,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    int varU;
 private slots:
     void handleButton();
+    void inputText();
 };
 
 #endif // MAINWINDOW_H

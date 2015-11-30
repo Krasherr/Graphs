@@ -19,6 +19,7 @@ HEADERS  += \
     filereader.h \
     mainwindow.h
 
-INCLUDEPATH += C:\Qt\5.5\boost\boost_1_59_0
+INCLUDEPATH += C:\Qt\Qt5.5.1\boost\boost_1_59_0 \
+               C:\Qt\5.5\boost\boost_1_59_0
 
 FORMS    += mainwindow.ui

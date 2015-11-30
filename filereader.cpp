@@ -24,10 +24,18 @@ void FileReader::chooseFile() {
                while (!in.atEnd())
                {
                   fileList.push_back(in.readLine().toStdString());
-                  std::cout << fileList.back() << endl;
+          //        std::cout << fileList.back() << endl;
                }
-               inputFile.close();
+
             }
-            //return fileList;
+            inputFile.close();
+            std::cout << "2" << endl;
+            return;
+            std::cout << "3" << endl;
+ //           return fileList;
         }
+}
+
+std::list<std::string> FileReader::getList() {
+    return fileList;
 }

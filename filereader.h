@@ -8,7 +8,6 @@
 #include <QMessageBox>
 #include <QTextStream>
 
-//std::list<std::string> chooseFile(int argc, char *argv[]){
 class FileReader {
 
 public:
@@ -16,6 +15,8 @@ public:
     ~FileReader();
 
     void chooseFile();
+    std::list<std::string> getList();
+
 
 private:
     QString fileName;
