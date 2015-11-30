@@ -15,12 +15,12 @@ public:
     ~FileReader();
 
     void chooseFile();
-    std::list<std::string> getList();
+    QList<QString> getList();
 
 
 private:
     QString fileName;
-    std::list<std::string> fileList;
+    QList<QString> fileList;
 
 
 };

@@ -23,19 +23,16 @@ void FileReader::chooseFile() {
                QTextStream in(&inputFile);
                while (!in.atEnd())
                {
-                  fileList.push_back(in.readLine().toStdString());
+                  fileList.push_back(in.readLine());
           //        std::cout << fileList.back() << endl;
                }
 
             }
             inputFile.close();
-            std::cout << "2" << endl;
-            return;
-            std::cout << "3" << endl;
- //           return fileList;
+
         }
 }
 
-std::list<std::string> FileReader::getList() {
+QList<QString> FileReader::getList() {
     return fileList;
 }

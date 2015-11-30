@@ -22,12 +22,8 @@ MainWindow::~MainWindow()
 void MainWindow::handleButton()
 {
     FileReader fl;
-
+    QTextStream out(stdout);
     fl.chooseFile();
-
-    std::list<std::string> myList = fl.getList();
-
-    std::cout << myList.back() << '\n';
    // for (std::list<std::string>::iterator it = myList.begin(); it!=myList.end();++it){
    // std::cout << *it << endl;
   //  }

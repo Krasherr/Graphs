@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
+    QTextStream out(stdout);
     MainWindow w;
     w.show();
 
