@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "filereader.h"
+#include "graph.h"
 #include "QInputDialog"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(handleButton()));
     ui->pushButton_2->setText("Wczytaj liczbę");
     connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(inputText()));
+    ui->pushButton_3->setText("Pokoloruj graf");
+    connect(ui->pushButton_3, SIGNAL(clicked()),this, SLOT(colorGraph()));
 }
 
 MainWindow::~MainWindow()
@@ -37,5 +40,23 @@ void MainWindow::inputText()
                                  tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
   //  if (ok)
       //  integerLabel->setText(tr("%1%").arg(varU));
+}
+
+int MainWindow::getU(){
+    return varU;
+}
+
+void MainWindow::colorGraph()
+{
+    Graph g1(4);
+    g1.addEdge(0, 1);
+    g1.addEdge(0, 2);
+    g1.addEdge(1, 2);
+    g1.addEdge(1, 3);
+    g1.addEdge(2, 3);
+
+
+    cout << "Coloring of Graph 1 \n";
+    g1.greedyColoring();
 
 }

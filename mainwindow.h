@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    int getU();
 
 private:
     Ui::MainWindow *ui;
@@ -22,6 +23,7 @@ private:
 private slots:
     void handleButton();
     void inputText();
+    void colorGraph();
 };
 
 #endif // MAINWINDOW_H
