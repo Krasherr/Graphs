@@ -1,7 +1,8 @@
 #include "graph.h"
 #include <vector>
 #include <iostream>
-using namespace std;
+#include <QApplication>
+#include <QDebug>
 
 
 void Graph::addEdge(int v, int w)
@@ -61,4 +62,54 @@ void Graph::greedyColoring()
 
 //	cout << result[0];
 //	cout << result[1];
+}
+
+void Graph::createGraph(QList<QString> strList, int u){
+        QMap<int, QVector<QString>> extList;
+    for(int it = 0; it<strList.size(); it++) {
+        QString str1, str2;
+        QVector<QString> v;
+            v.push_back(strList.at(it).mid(0,1));
+            for (int i=1; i < strList.at(it).size(); ++i ) {
+                if (strList.at(it)[i] == '-') {
+                    int size = v.size();
+                    for (int j = 0; j < size; j++ )
+                        v.push_back(v[j]);
+
+                    for (int j = 0; j <  v.size(); j++ ) {
+                        QString c;
+                        if (j % 2==0)
+                            c = "0";
+                        else
+                            c = "1";
+                        v[j].append(c);
+                    }
+                } else {
+                    for (int j = 0; j <  v.size(); j++ ) {
+                        v[j].append(strList.at(it).mid(i,1));
+                    }
+                }
+            }
+        //    for (int j = 0; j < v.size(); j++ ) {
+        //        std::cout << v[j].toStdString() << endl;
+        //    }
+         extList.insert(it, v);
+      /*  for (int c = 0; c<strList.at(it).size(); c++){
+       //     char ch = strList.at(it)[c];
+             if (strList.at(it)[c] == '0'){
+             } else if (strList.at(it)[c]=='1'){
+             } else if (strList.at(it)[c] == '-'){
+             }
+                }*/
+
+
+
+
+    }
+    foreach (int key, extList.keys()){
+        for (int j = 0; j < extList.value(key).size(); j++ ) {
+                    std::cout << extList.value(key)[j].toStdString() << endl;
+                }
+    }
+
 }

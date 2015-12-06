@@ -4,6 +4,8 @@
 #include "graph.h"
 #include "QInputDialog"
 
+FileReader fl;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -15,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(inputText()));
     ui->pushButton_3->setText("Pokoloruj graf");
     connect(ui->pushButton_3, SIGNAL(clicked()),this, SLOT(colorGraph()));
+
 }
 
 MainWindow::~MainWindow()
@@ -24,9 +27,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleButton()
 {
-    FileReader fl;
+
     QTextStream out(stdout);
     fl.chooseFile();
+
    // for (std::list<std::string>::iterator it = myList.begin(); it!=myList.end();++it){
    // std::cout << *it << endl;
   //  }
@@ -48,7 +52,7 @@ int MainWindow::getU(){
 
 void MainWindow::colorGraph()
 {
-    Graph g1(4);
+    /*Graph g1(4);
     g1.addEdge(0, 1);
     g1.addEdge(0, 2);
     g1.addEdge(1, 2);
@@ -57,6 +61,11 @@ void MainWindow::colorGraph()
 
 
     cout << "Coloring of Graph 1 \n";
-    g1.greedyColoring();
+    g1.greedyColoring();*/
+
+    Graph gr(varU);
+
+    //rawList.at(0);
+    gr.createGraph(fl.getList(), varU);
 
 }

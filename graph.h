@@ -2,6 +2,7 @@
 #define GRAPH_H
 
 #include <list>
+#include <QApplication>
 
 using namespace std;
 class Graph
@@ -10,6 +11,7 @@ class Graph
     list<int> *adj;    // A dynamic array of adjacency lists
 public:
     // Constructor and destructor
+    Graph();
     Graph(int V) { this->V = V; adj = new list<int>[V]; }
     ~Graph() { delete[] adj; }
 
@@ -18,6 +20,7 @@ public:
 
     // Prints greedy coloring of the vertices
     void greedyColoring();
+    void createGraph(QList<QString> strList, int u);
 };
 
 #endif // GRAPH_H

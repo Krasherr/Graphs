@@ -15,7 +15,7 @@ public:
     ~FileReader();
 
     void chooseFile();
-    QList<QString> getList();
+    QList<QString> getList() { return fileList; }
 
 
 private:

@@ -11,7 +11,7 @@ FileReader::~FileReader()
 
 void FileReader::chooseFile() {
     {
-
+            QList<QString> fileLocalList;
             fileName = QFileDialog::getOpenFileName(0,"Open File",QDir::currentPath(),
                   "All files (*.*)",
                       new QString("All files (*.*)"));
@@ -23,16 +23,14 @@ void FileReader::chooseFile() {
                QTextStream in(&inputFile);
                while (!in.atEnd())
                {
-                  fileList.push_back(in.readLine());
+                 fileLocalList.push_back(in.readLine());
           //        std::cout << fileList.back() << endl;
                }
 
             }
+         //   std::cout << fileList.at(1).toStdString() << endl;
             inputFile.close();
-
+            fileList=fileLocalList;
         }
 }
 
-QList<QString> FileReader::getList() {
-    return fileList;
-}
