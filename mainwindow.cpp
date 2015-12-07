@@ -65,7 +65,6 @@ void MainWindow::colorGraph()
 
     Graph gr(varU);
 
-    //rawList.at(0);
     gr.createGraph(fl.getList(), varU);
 
 }

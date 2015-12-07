@@ -66,8 +66,10 @@ void Graph::greedyColoring()
 
 void Graph::createGraph(QList<QString> strList, int u){
         QVector<QVector<QString>> extList;
+        int output;
+        int input;
+
     for(int it = 0; it<strList.size(); it++) {
-        QString str1, str2;
         QVector<QString> v;
             if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0'){
                 v.push_back(strList.at(it).mid(0,1));
@@ -85,6 +87,10 @@ void Graph::createGraph(QList<QString> strList, int u){
                         c = "1";
                     v[j].append(c);
                  }
+            } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'o'){
+                output = strList.at(it).mid(3,4).toInt();
+            } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'i'){
+                input = strList.at(it).mid(3,4).toInt();
             }
             for (int i=1; i < strList.at(it).size(); ++i ) {
                 if (strList.at(it)[i] == '-') {
@@ -111,6 +117,7 @@ void Graph::createGraph(QList<QString> strList, int u){
         }
 
     }
+
     int index = 1;
     int count = 0;
     int key = 0;
@@ -120,6 +127,9 @@ void Graph::createGraph(QList<QString> strList, int u){
         count = count + it->count();
 
     }
+    std::cout << "varU: " << u << endl;
+    std::cout << "input: " << input << endl;
+    std::cout << "output: " << output << endl;
     std::cout << "node count: " << count << endl;
     Graph g(count);
 
@@ -132,7 +142,7 @@ void Graph::createGraph(QList<QString> strList, int u){
              for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
                  for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
                       std::cout << key1 << " : " << itttt->toStdString()<<endl;
-                      if (itt->mid(0,2)==itttt->mid(0,2)&&itt->mid(4,6)!=itttt->mid(4,6)){
+                      if (itt->mid(0,input-u)==itttt->mid(0,input-u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
                           g.addEdge(key,key1);
                           cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
 
