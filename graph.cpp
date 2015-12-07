@@ -65,11 +65,27 @@ void Graph::greedyColoring()
 }
 
 void Graph::createGraph(QList<QString> strList, int u){
-        QMap<int, QVector<QString>> extList;
+        QVector<QVector<QString>> extList;
     for(int it = 0; it<strList.size(); it++) {
         QString str1, str2;
         QVector<QString> v;
-            v.push_back(strList.at(it).mid(0,1));
+            if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0'){
+                v.push_back(strList.at(it).mid(0,1));
+            }
+            else if (strList.at(it)[0] == '-'){
+                int size = v.size();
+                for (int j = 0; j < size; j++ )
+                    v.push_back(v[j]);
+
+                for (int j = 0; j <  v.size(); j++ ) {
+                    QString c;
+                    if (j % 2==0)
+                        c = "0";
+                    else
+                        c = "1";
+                    v[j].append(c);
+                 }
+            }
             for (int i=1; i < strList.at(it).size(); ++i ) {
                 if (strList.at(it)[i] == '-') {
                     int size = v.size();
@@ -84,32 +100,50 @@ void Graph::createGraph(QList<QString> strList, int u){
                             c = "1";
                         v[j].append(c);
                     }
-                } else {
+                } else if (strList.at(it)[i] == '1' || strList.at(it)[i] == '0') {
                     for (int j = 0; j <  v.size(); j++ ) {
                         v[j].append(strList.at(it).mid(i,1));
                     }
                 }
             }
-        //    for (int j = 0; j < v.size(); j++ ) {
-        //        std::cout << v[j].toStdString() << endl;
-        //    }
-         extList.insert(it, v);
-      /*  for (int c = 0; c<strList.at(it).size(); c++){
-       //     char ch = strList.at(it)[c];
-             if (strList.at(it)[c] == '0'){
-             } else if (strList.at(it)[c]=='1'){
-             } else if (strList.at(it)[c] == '-'){
-             }
-                }*/
-
-
-
+         if (!v.empty()){
+            extList.push_back(v);
+        }
 
     }
-    foreach (int key, extList.keys()){
-        for (int j = 0; j < extList.value(key).size(); j++ ) {
-                    std::cout << extList.value(key)[j].toStdString() << endl;
-                }
+    int index = 1;
+    int count = 0;
+    int key = 0;
+
+    for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it){
+
+        count = count + it->count();
+
     }
+    std::cout << "node count: " << count << endl;
+    Graph g(count);
+
+    for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
+
+        for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
+             int key1 = key +1;
+             std::cout << key << " : "<< itt->toStdString()<<endl;
+
+             for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
+                 for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
+                      std::cout << key1 << " : " << itttt->toStdString()<<endl;
+                      if (itt->mid(0,2)==itttt->mid(0,2)&&itt->mid(4,6)!=itttt->mid(4,6)){
+                          g.addEdge(key,key1);
+                          cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
+
+                      } key1 = key1 + 1;
+                 }
+                 /* std::cout << *it; ... */
+             } key = key + 1;
+        }
+    index = index + 1;
+    }
+
+
 
 }
