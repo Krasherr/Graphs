@@ -18,7 +18,7 @@ void Graph::greedyColoring()
     //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
     vector <int> result(V);
     // Assign the first color to first vertex
-    result[0] = V-1;
+    result[0] = 0;
 
     // Initialize remaining V-1 vertices as unassigned
     for (int u = 1; u < V; u++)
@@ -43,7 +43,7 @@ void Graph::greedyColoring()
 
         // Find the first available color
         int cr;
-        for (cr = V-1; cr >= 0; cr--)
+        for (cr = 0; cr <= V-1; cr++)
             if (available[cr] == false)
                 break;
 
@@ -148,12 +148,11 @@ void Graph::createGraph(QList<QString> strList, int u){
 
                       } key1 = key1 + 1;
                  }
-                 /* std::cout << *it; ... */
              } key = key + 1;
         }
     index = index + 1;
     }
 
-
+    g.greedyColoring();
 
 }
