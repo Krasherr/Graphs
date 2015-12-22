@@ -28,7 +28,7 @@ int Graph::getTmp()
     return max_i;
 }
 
-void Graph::greedyColoring()
+void Graph::LFRColoring()
 {
 
      //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
@@ -83,24 +83,33 @@ void Graph::greedyColoring()
     for (int u = 0; u < V; u++)
         std::cout << "Vertex " << u << " --->  Color "
         << color[u] << std::endl;
+    tmp.clear();
+    color.clear();
 
 //	cout << result[0];
 //	cout << result[1];
 }
-/*
-void Graph::greedyEqualBitColoring()
+
+void Graph::EqualBitColoring()
 {
-    std::vector<boost::dynamic_bitset<> > result(V);
+    int uncolored=0;
+    for (int u = 0; u<V; u++){
+        tmp.push_back(adj[u].size());
+    }
+
     //vector <int> result(V);
     // Assign the first color to first vertex
     const boost::dynamic_bitset<> bMinus(1, -1ul);
     int zero = 0, one = 0;
     boost::dynamic_bitset<> b0(1, 0ul);
-    result[0] = b0;
+    //result[0] = b0;
     zero++;
     // Initialize remaining V-1 vertices as unassigned
     for (int u = 1; u < V; u++)
-        result[u] = bMinus;  // no color is assigned to u
+    {
+
+    }
+  //      result[u] = bMinus;  // no color is assigned to u
 
                          // A temporary array to store the available colors. True
                          // value of available[cr] would mean that the color cr is
@@ -151,8 +160,8 @@ void Graph::greedyEqualBitColoring()
         << result[u] << std::endl;
 
 //	cout << result[0];
-//	cout << result[1];
-}*/
+//	cout << result[1];*/
+}
 
 
 
@@ -246,7 +255,7 @@ void Graph::createGraph(QList<QString> strList, int u){
         }
     index++;
     }
-    g.greedyColoring();
+    g.LFRColoring();
 
 
 }

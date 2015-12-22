@@ -3,6 +3,7 @@
 
 #include <list>
 #include <QApplication>
+#include "boost/dynamic_bitset.hpp"
 
 using namespace std;
 class Graph
@@ -11,6 +12,7 @@ class Graph
     list<int> *adj;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
+    vector<boost::dynamic_bitset<> > colorBit;
 public:
     // Constructor and destructor
     Graph();
@@ -19,10 +21,9 @@ public:
 
     // function to add an edge to graph
     void addEdge(int v, int w);
-    const static int MAX = 100;
     // Prints greedy coloring of the vertices
-    void greedyColoring();
-    void greedyEqualBitColoring();
+    void LFRColoring();
+    void EqualBitColoring();
     void createGraph(QList<QString> strList, int u);
     int getTmp();
 
