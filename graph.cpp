@@ -5,7 +5,6 @@
 #include <QDebug>
 #include "boost/dynamic_bitset.hpp"
 
-
 void Graph::addEdge(int v, int w)
 {
     adj[v].push_back(w);
@@ -14,57 +13,81 @@ void Graph::addEdge(int v, int w)
 
 // Assigns colors (starting from 0) to all vertices and prints
 // the assignment of colors
+
+int Graph::getTmp()
+{
+    int max = -1;
+    int max_i;
+    for (int i =0; i < V; i++)
+        if (color[i] == -1)
+            if (tmp[i]>max)
+            {
+                max = tmp[i];
+                max_i = i;
+            }
+    return max_i;
+}
+
 void Graph::greedyColoring()
 {
-    //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
-    vector <int> result(V);
+
+     //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
+    int uncolored=0;
+    //tmp = new vector <int> (V);
+
     // Assign the first color to first vertex
-    result[0] = 0;
+    for (int u = 0; u<V; u++){
+        tmp.push_back(adj[u].size());
+    }
 
     // Initialize remaining V-1 vertices as unassigned
-    for (int u = 1; u < V; u++)
-        result[u] = -1;  // no color is assigned to u
-
+    for (int u = 0; u < V; u++){
+        uncolored++;
+        color.push_back(-1);  // no color is assigned to u
+    }
                          // A temporary array to store the available colors. True
                          // value of available[cr] would mean that the color cr is
                          // assigned to one of its adjacent vertices
-    vector<bool> available(V);
+    vector<bool> used(V);
     for (int cr = 0; cr < V; cr++)
-        available[cr] = false;
+        used[cr] = false;
 
     // Assign colors to remaining V-1 vertices
-    for (int u = 1; u < V; u++)
+    while (uncolored>0)
     {
+        int u;
         // Process all adjacent vertices and flag their colors
         // as unavailable
+        u = getTmp();
         list<int>::iterator i;
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (result[*i] != -1)
-                available[result[*i]] = true;
+            if (color[*i] != -1)
+                used[color[*i]] = true;
 
         // Find the first available color
         int cr;
         for (cr = 0; cr <= V-1; cr++)
-            if (available[cr] == false)
+            if (used[cr] == false)
                 break;
 
-        result[u] = cr; // Assign the found color
+        color[u] = cr; // Assign the found color
+        uncolored--;
 
                         // Reset the values back to false for the next iteration
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (result[*i] != -1)
-                available[result[*i]] = false;
+            if (color[*i] != -1)
+                used[color[*i]] = false;
     }
 
     // print the result
     for (int u = 0; u < V; u++)
         std::cout << "Vertex " << u << " --->  Color "
-        << result[u] << std::endl;
+        << color[u] << std::endl;
 
 //	cout << result[0];
 //	cout << result[1];
 }
-
+/*
 void Graph::greedyEqualBitColoring()
 {
     std::vector<boost::dynamic_bitset<> > result(V);
@@ -75,7 +98,6 @@ void Graph::greedyEqualBitColoring()
     boost::dynamic_bitset<> b0(1, 0ul);
     result[0] = b0;
     zero++;
-
     // Initialize remaining V-1 vertices as unassigned
     for (int u = 1; u < V; u++)
         result[u] = bMinus;  // no color is assigned to u
@@ -88,7 +110,11 @@ void Graph::greedyEqualBitColoring()
         available[cr] = false;*/
 
     // Assign colors to remaining V-1 vertices
-    for (int u = 1; u < V; u++)
+
+    //Zrobic funkcje ktora na wejscie dostaje liczbe bitow i vector wezlow, zwraca ten sam vector ze zmianami i flaga czy wszystkie pokolorowane, jesli nie to dostaje vector z powrotem z wieksza liczba bitow
+
+
+    /*for (int u = 1; u < V; u++)
     {
         // Process all adjacent vertices and flag their colors
         // as unavailable
@@ -116,7 +142,7 @@ void Graph::greedyEqualBitColoring()
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
             if (result[*i] != bMinus)
                 available[result[*i]] = false;
-    */
+
     }
 
     // print the result
@@ -126,7 +152,9 @@ void Graph::greedyEqualBitColoring()
 
 //	cout << result[0];
 //	cout << result[1];
-}
+}*/
+
+
 
 void Graph::createGraph(QList<QString> strList, int u){
         QVector<QVector<QString>> extList;
@@ -208,15 +236,17 @@ void Graph::createGraph(QList<QString> strList, int u){
                       std::cout << key1 << " : " << itttt->toStdString()<<endl;
                       if (itt->mid(0,input-u)==itttt->mid(0,input-u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
                           g.addEdge(key,key1);
+
                           cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
+                      }else {
 
-                      } key1 = key1 + 1;
+                      } key1++;
                  }
-             } key = key + 1;
+             } key++;
         }
-    index = index + 1;
+    index++;
     }
-
     g.greedyColoring();
+
 
 }
