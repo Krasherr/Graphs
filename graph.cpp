@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QApplication>
 #include <QDebug>
+#include "boost/dynamic_bitset.hpp"
 
 
 void Graph::addEdge(int v, int w)
@@ -53,6 +54,69 @@ void Graph::greedyColoring()
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
             if (result[*i] != -1)
                 available[result[*i]] = false;
+    }
+
+    // print the result
+    for (int u = 0; u < V; u++)
+        std::cout << "Vertex " << u << " --->  Color "
+        << result[u] << std::endl;
+
+//	cout << result[0];
+//	cout << result[1];
+}
+
+void Graph::greedyEqualBitColoring()
+{
+    std::vector<boost::dynamic_bitset<> > result(V);
+    //vector <int> result(V);
+    // Assign the first color to first vertex
+    const boost::dynamic_bitset<> bMinus(1, -1ul);
+    int zero = 0, one = 0;
+    boost::dynamic_bitset<> b0(1, 0ul);
+    result[0] = b0;
+    zero++;
+
+    // Initialize remaining V-1 vertices as unassigned
+    for (int u = 1; u < V; u++)
+        result[u] = bMinus;  // no color is assigned to u
+
+                         // A temporary array to store the available colors. True
+                         // value of available[cr] would mean that the color cr is
+                         // assigned to one of its adjacent vertices
+    /*vector<bool> available(V);
+    for (int cr = 0; cr < V; cr++)
+        available[cr] = false;*/
+
+    // Assign colors to remaining V-1 vertices
+    for (int u = 1; u < V; u++)
+    {
+        // Process all adjacent vertices and flag their colors
+        // as unavailable
+        int bit = 0;
+        bool flagZero = false;
+        bool flagOne = false;
+        list<int>::iterator i;
+        for (i = adj[u].begin(); i != adj[u].end(); ++i)
+            if (result[*i] != bMinus && (result[*i][bit] = 0 || result[*i][bit] = 1))
+            {
+                flagZero=true;
+                flagOne=true;
+            }
+               // available[result[*i]] = true;
+
+        // Find the first available color
+    /*    int cr;
+        for (cr = 0; cr <= V-1; cr++)
+            if (available[cr] == false)
+                break;
+
+        result[u] = cr; // Assign the found color
+
+                        // Reset the values back to false for the next iteration
+        for (i = adj[u].begin(); i != adj[u].end(); ++i)
+            if (result[*i] != bMinus)
+                available[result[*i]] = false;
+    */
     }
 
     // print the result

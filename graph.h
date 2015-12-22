@@ -20,6 +20,7 @@ public:
 
     // Prints greedy coloring of the vertices
     void greedyColoring();
+    void greedyEqualBitColoring();
     void createGraph(QList<QString> strList, int u);
 };
 
