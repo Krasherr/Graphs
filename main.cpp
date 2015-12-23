@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     g2.addEdge(2, 3);
 
     cout << "\nColoring of Graph 2 \n";
-    g2.EqualBitColoring();
+    g2.LFRBitColoring();
   //  std::list<std::string> fileList;
   //  fileList = chooseFile(argc, argv);
 

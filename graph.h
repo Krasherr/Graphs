@@ -12,7 +12,8 @@ class Graph
     list<int> *adj;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
-    vector<int> marked;
+    vector<int> bitSize;
+    vector<bool> marked;
     vector<boost::dynamic_bitset<> > colorBit;
 public:
     // Constructor and destructor
@@ -24,7 +25,7 @@ public:
     void addEdge(int v, int w);
     // Prints greedy coloring of the vertices
     void LFRColoring();
-    void EqualBitColoring();
+    void LFRBitColoring();
     void createGraph(QList<QString> strList, int u);
     int getTmp();
     int getTmpBit();
