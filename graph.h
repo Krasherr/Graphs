@@ -26,9 +26,11 @@ public:
     // Prints greedy coloring of the vertices
     void LFRColoring();
     void LFRBitColoring();
+    void EqualBitColoring();
     void createGraph(QList<QString> strList, int u);
     int getTmp();
     int getBitTmp();
+    int getBitEqTmp();
 
 
 };
