@@ -28,7 +28,7 @@ public:
     void LFRBitColoring();
     void createGraph(QList<QString> strList, int u);
     int getTmp();
-    int getTmpBit();
+    int getBitTmp();
 
 
 };

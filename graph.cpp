@@ -21,6 +21,20 @@ int Graph::getTmp()
     int max = -1;
     int max_i;
     for (int i =0; i < V; i++)
+        if (color[i] == -1)
+            if (tmp[i]>max)
+            {
+                max = tmp[i];
+                max_i = i;
+            }
+    return max_i;
+}
+
+int Graph::getBitTmp()
+{
+    int max = -1;
+    int max_i;
+    for (int i =0; i < V; i++)
         if ((color[i] == -1 || marked[i]==true) && bitSize[i] == *min_element(bitSize.begin(), bitSize.end()))
             if (tmp[i]>max)
             {
@@ -133,7 +147,7 @@ void Graph::LFRBitColoring()
         int u;
         // Process all adjacent vertices and flag their colors
         // as unavailable
-        u = getTmp();
+        u = getBitTmp();
          cout << "petla, vector: " << u << endl;
         list<int>::iterator i;
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
@@ -203,6 +217,11 @@ void Graph::LFRBitColoring()
                 std::cout << "Vertex " << u << " --->  Color "
                 << colorBit[u][i] << std::endl;
     }
+
+    colorBit.clear();
+    color.clear();
+    bitSize.clear();
+    marked.clear();
 }
 
 
