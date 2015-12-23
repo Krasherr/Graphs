@@ -12,6 +12,7 @@ class Graph
     list<int> *adj;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
+    vector<int> marked;
     vector<boost::dynamic_bitset<> > colorBit;
 public:
     // Constructor and destructor
@@ -26,6 +27,7 @@ public:
     void EqualBitColoring();
     void createGraph(QList<QString> strList, int u);
     int getTmp();
+    int getTmpBit();
 
 
 };

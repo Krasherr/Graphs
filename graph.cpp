@@ -5,6 +5,8 @@
 #include <QDebug>
 #include "boost/dynamic_bitset.hpp"
 
+
+
 void Graph::addEdge(int v, int w)
 {
     adj[v].push_back(w);
@@ -27,6 +29,7 @@ int Graph::getTmp()
             }
     return max_i;
 }
+
 
 void Graph::LFRColoring()
 {
@@ -51,6 +54,9 @@ void Graph::LFRColoring()
     vector<bool> used(V);
     for (int cr = 0; cr < V; cr++)
         used[cr] = false;
+
+    for (int cr = 0; cr < V; cr++)
+        marked.push_back(0);
 
     // Assign colors to remaining V-1 vertices
     while (uncolored>0)
@@ -92,6 +98,8 @@ void Graph::LFRColoring()
 
 void Graph::EqualBitColoring()
 {
+    const boost::dynamic_bitset<> bZero(1, 0ul);
+    int bitSize=1;
     int uncolored=0;
     for (int u = 0; u<V; u++){
         tmp.push_back(adj[u].size());
@@ -99,68 +107,85 @@ void Graph::EqualBitColoring()
 
     //vector <int> result(V);
     // Assign the first color to first vertex
-    const boost::dynamic_bitset<> bMinus(1, -1ul);
-    int zero = 0, one = 0;
-    boost::dynamic_bitset<> b0(1, 0ul);
-    //result[0] = b0;
-    zero++;
-    // Initialize remaining V-1 vertices as unassigned
-    for (int u = 1; u < V; u++)
-    {
 
+    //int zero = 0, one = 0;
+    for (int u = 0; u < V; u++){
+        uncolored++;
+        color.push_back(-1);
+        colorBit.push_back(bZero);  // no color is assigned to u
     }
-  //      result[u] = bMinus;  // no color is assigned to u
 
-                         // A temporary array to store the available colors. True
-                         // value of available[cr] would mean that the color cr is
-                         // assigned to one of its adjacent vertices
-    /*vector<bool> available(V);
+
+    vector<bool> used(2);
+    for (int cr = 0; cr < 2; cr++)
+        used[cr] = false;
+
     for (int cr = 0; cr < V; cr++)
-        available[cr] = false;*/
+        marked.push_back(0);
 
-    // Assign colors to remaining V-1 vertices
-
-    //Zrobic funkcje ktora na wejscie dostaje liczbe bitow i vector wezlow, zwraca ten sam vector ze zmianami i flaga czy wszystkie pokolorowane, jesli nie to dostaje vector z powrotem z wieksza liczba bitow
-
-
-    /*for (int u = 1; u < V; u++)
+    cout << "po ustawieniu kolorow na -1" << endl;
+    //result[0] = b0;
+   // zero++;
+    // Initialize remaining V-1 vertices as unassigned
+    while (uncolored>0)
     {
+        cout << "petla, uncolored: " << uncolored << endl;
+        int u;
         // Process all adjacent vertices and flag their colors
         // as unavailable
-        int bit = 0;
-        bool flagZero = false;
-        bool flagOne = false;
+        u = getTmp();
+         cout << "petla, u: " << u << endl;
         list<int>::iterator i;
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (result[*i] != bMinus && (result[*i][bit] = 0 || result[*i][bit] = 1))
-            {
-                flagZero=true;
-                flagOne=true;
-            }
-               // available[result[*i]] = true;
+            if (color[*i] != -1){
+               if (colorBit[*i][marked[u]]==0)
+                   used[0] = true;
+               else if (colorBit[*i][marked[u]]==1)
+                   used[1] = true;
+
+        }
+
 
         // Find the first available color
-    /*    int cr;
-        for (cr = 0; cr <= V-1; cr++)
-            if (available[cr] == false)
+        int cr;
+        for (cr = 0; cr <= 2; cr++)
+            if (used[cr] == false)
                 break;
 
-        result[u] = cr; // Assign the found color
+        cout << "cr " << cr << endl;
+        if (cr == 0 || cr == 1)
+        {   colorBit[u][marked[u]] = cr; // Assign the found color
+            color[u]=1;
+            uncolored--;
+        } else {
+            colorBit[u][marked[u]] = 1;
+            marked[u]++;
+            bitSize++;
+            colorBit[u].resize(bitSize);
+
+        }
 
                         // Reset the values back to false for the next iteration
         for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (result[*i] != bMinus)
-                available[result[*i]] = false;
-
+            if (color[*i] != -1){
+                used[0] = false;
+                used[1] = false;
+            }
     }
 
-    // print the result
-    for (int u = 0; u < V; u++)
-        std::cout << "Vertex " << u << " --->  Color "
-        << result[u] << std::endl;
+    cout << "wyjscie z petli" << endl;
 
-//	cout << result[0];
-//	cout << result[1];*/
+    for (int u = 0; u < V; u++){
+        std::cout << "Vertex " << u << " --->  Size "
+            << colorBit[u].size() << std::endl;
+        for (int i = 0; i<bitSize; i++)
+            if (i >= colorBit[u].size())
+                std::cout << "Vertex " << u << " --->  Color "
+                << "-" << std::endl;
+            else
+            std::cout << "Vertex " << u << " --->  Color "
+            << colorBit[u][i] << std::endl;
+    }
 }
 
 
