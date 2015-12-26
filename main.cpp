@@ -14,7 +14,7 @@
 
 
 
-  int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 
   /*  QApplication a(argc, argv);
@@ -25,7 +25,7 @@
     return a.exec();*/
 
 
-  Graph g2(4);
+    Graph g2(4);
     g2.addEdge(0, 1);
     g2.addEdge(0, 2);
     g2.addEdge(0, 3);
@@ -34,9 +34,8 @@
     g2.addEdge(2, 3);
 
     cout << "\nColoring of Graph 2 \n";
-    g2.EqualBitColoring();
-  //  g2.LFRColoring();
-  //  g2.LFRBitColoring();
+    g2.LFRColoring();
+    g2.LFRBitColoring();
   //  std::list<std::string> fileList;
   //  fileList = chooseFile(argc, argv);
 
@@ -46,19 +45,11 @@
 
 /*int main(int, char*[])
 {
-  vector<boost::dynamic_bitset<>> V;
-  const boost::dynamic_bitset<> bZero(1, 1ul);
-  V.push_back(bZero);
-  std::cout << "bits(0) = " << V[0] << std::endl;
+  boost::dynamic_bitset<> b0(2, 0ul);
+  std::cout << "bits(0) = " << b0 << std::endl;
 
-  V[0].resize(3);
-  std::cout << "bits(0) po resize = " << V[0] << std::endl;
-  for (int u = 0; u < 1; u++){
-      std::cout << "Vertex " << u << " --->  Size "
-          << V[u].size() << std::endl;
-      for (int i = 0; i<=2; i++)
-              std::cout << "Vertex " << u << " --->  Color "
-              << V[u][i] << std::endl;
-  }
-}*/
+  b0.resize(3);
+  std::cout << "bits(0) po resize = " << b0 << std::endl;
 
+}
+*/
