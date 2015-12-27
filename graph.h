@@ -13,6 +13,7 @@ class Graph
     vector<int> color;
     vector<int> tmp;
     vector<int> bitSize;
+    vector<int> bitSizeMin;
     vector<bool> marked;
     vector<boost::dynamic_bitset<> > colorBit;
 public:

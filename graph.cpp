@@ -35,7 +35,7 @@ int Graph::getBitTmp()
     int max = -1;
     int max_i;
     for (int i =0; i < V; i++)
-        if ((color[i] == -1 || marked[i]==true) && bitSize[i] == *min_element(bitSize.begin(), bitSize.end()))
+        if ((color[i] == -1 || marked[i]==true) && bitSize[i] == *min_element(bitSizeMin.begin(), bitSizeMin.end()))
             if (tmp[i]>max)
             {
                 max = tmp[i];
@@ -69,8 +69,6 @@ void Graph::LFRColoring()
     for (int cr = 0; cr < V; cr++)
         used[cr] = false;
 
-    for (int cr = 0; cr < V; cr++)
-        bitSize.push_back(0);
     // Assign colors to remaining V-1 vertices
     while (uncolored>0)
     {
@@ -134,6 +132,7 @@ void Graph::LFRBitColoring()
 
     for (int cr = 0; cr < V; cr++){
         bitSize.push_back(0);
+        bitSizeMin.push_back(0);
         marked.push_back(true);
     }
 
@@ -145,17 +144,20 @@ void Graph::LFRBitColoring()
     {
                 cout << "petla, uncolored: " << uncolored << endl;
         int u;
+        vector<std::list<int>::iterator> it;
         // Process all adjacent vertices and flag their colors
         // as unavailable
         u = getBitTmp();
          cout << "petla, vector: " << u << endl;
         list<int>::iterator i;
-        for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (color[*i] != -1 && bitSize[*i] == bitSize[u]){
+        for (i = adj[u].begin(); i != adj[u].end(); ++i){
+           // cout << "petla, vector: " << *i << endl;
+            if (color[*i] != -1){
                if (colorBit[*i][bitSize[u]]==0)
                    used[0] = true;
                else if (colorBit[*i][bitSize[u]]==1)
                    used[1] = true;
+            }
         }
 
 
@@ -172,39 +174,62 @@ void Graph::LFRBitColoring()
             color[u]=1;
             marked[u]=false;
             uncolored--;
+            bitSizeMin[u]=9999;
         } else {
-            colorBit[u][bitSize[u]] = 1;
+            colorBit[u][bitSize[u]] = 0;
             bitSize[u]=bitSize[u]+1;
-            color[u]=1;
+            bitSizeMin[u]=bitSize[u];
+
             cout << "bitSize: " << bitSize[u]<<endl;
             colorBit[u].resize( bitSize[u]+1);
 
         }
 
-        if (bitSize[u]>0){
+        if (marked[u]==true){
 
-            for (i = adj[u].begin(); i != adj[u].end(); ++i)
-                if (color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1]){
+            for (i = adj[u].begin(); i != adj[u].end(); ++i){
+
+                if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] ){
+
                     if (bitSize[*i] < bitSize[u])
                     {
                         bitSize[*i]=bitSize[u];
+                        bitSizeMin[*i]=bitSize[u];
                         colorBit[*i].resize(bitSize[u]+1);
                         marked[*i]=true;
+                        color[u]=-1;
                         uncolored++;
+                        cout << "powiekszam wezel numer: " << *i<<endl;
                     }
+
+                } else {
+
+                    if (color[*i] != -1){
+                        it.push_back(i);
+                        cout << "usuwam wezel numer: " << *i<<endl;
+                    }
+
                 }
+            }
+        }
+
+        for (int j = 0; j < it.size(); j++){
+            adj[u].erase(it[j]);
         }
 
                         // Reset the values back to false for the next iteration
-        for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            if (color[*i] != -1){
-                used[0] = false;
-                used[1] = false;
-            }
+       // if (!adj[u].empty())
+         for (i = adj[u].begin(); i != adj[u].end(); ++i){
+              cout << "ustawiam pozostale wartosc na true-false: " << *i << endl;
+                if (color[*i] != -1){
+                    used[0] = false;
+                    used[1] = false;
+                }
+         }
 
     }
 
-    cout << "wyjscie z petli" << endl;
+    //cout << "wyjscie z petli" << endl;
 
     for (int u = 0; u < V; u++){
         std::cout << "Vertex " << u << " --->  Size "
