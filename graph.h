@@ -24,7 +24,8 @@ public:
     void createGraph(QList<QString> strList, int u);
     int getTmp();
     int getBitTmp();
-    int setV(int count) { this->V = count; adj = new list<int>[V];}
+    int getV() {return V;}
+    void setV(int count) { this->V = count; adj = new list<int>[V];}
     void addNode() {this->V++; adj->resize(V);}
 
 private:

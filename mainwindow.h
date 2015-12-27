@@ -29,6 +29,8 @@ private slots:
     void LFRGraph();
     void LFRBitGraph();
     void EqualBitGraph();
+    void addNode();
+    void addEdge();
 };
 
 #endif // MAINWINDOW_H

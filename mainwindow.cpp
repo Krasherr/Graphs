@@ -24,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_5, SIGNAL(clicked()),this, SLOT(LFRBitGraph()));
     ui->pushButton_6->setText("Kolorowanie grafu Equal Bit");
     connect(ui->pushButton_6, SIGNAL(clicked()),this, SLOT(EqualBitGraph()));
+    ui->pushButton_7->setText("Dodaj wezel");
+    connect(ui->pushButton_7, SIGNAL(clicked()),this, SLOT(addNode()));
+    ui->pushButton_8->setText("Dodaj krawedz");
+    connect(ui->pushButton_8, SIGNAL(clicked()),this, SLOT(addEdge()));
 }
 
 MainWindow::~MainWindow()
@@ -120,6 +124,11 @@ void MainWindow::createGraph()
     g.LFRBitColoring();
     cout << "start EqualBitColoring" << endl;
     g.EqualBitColoring();*/
+
+    for (int i = 0; i < count; i++){
+        ui->comboBox->addItem(QString::number(i));
+        ui->comboBox_2->addItem(QString::number(i));
+    }
 }
 
 void MainWindow::LFRGraph() {
@@ -132,4 +141,26 @@ void MainWindow::LFRBitGraph() {
 
 void MainWindow::EqualBitGraph() {
     g.EqualBitColoring();
+}
+
+void MainWindow::addNode() {
+    g.addNode();
+    ui->comboBox->addItem(QString::number(g.getV()-1));
+    ui->comboBox_2->addItem(QString::number(g.getV()-1));
+}
+
+void MainWindow::addEdge() {
+
+    int node1 = ui->comboBox->currentText().toInt();
+    int node2 = ui->comboBox_2->currentText().toInt();
+
+    if (node1 > node2){
+        g.addEdge(node1, node2);
+    } else if (node2 > node1){
+        g.addEdge(node2, node1);
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Nie mozesz polaczyc tych samych wezlow!");
+        msgBox.exec();
+    }
 }
