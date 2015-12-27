@@ -150,83 +150,94 @@ void Graph::LFRBitColoring()
         u = getBitTmp();
          cout << "petla, vector: " << u << endl;
         list<int>::iterator i;
-        for (i = adj[u].begin(); i != adj[u].end(); ++i){
-           // cout << "petla, vector: " << *i << endl;
-            if (color[*i] != -1){
-               if (colorBit[*i][bitSize[u]]==0)
-                   used[0] = true;
-               else if (colorBit[*i][bitSize[u]]==1)
-                   used[1] = true;
-            }
-        }
 
-
-        // Find the first available color
-        int cr;
-        for (cr = 0; cr <= 2; cr++)
-            if (used[cr] == false)
-                break;
-
-
-        cout << "kolor dostepny: " << cr << endl;
-        if (cr == 0 || cr == 1)
-        {   colorBit[u][bitSize[u]] = cr; // Assign the found color
-            color[u]=1;
-            marked[u]=false;
-            uncolored--;
-            bitSizeMin[u]=9999;
+        if (colorBit[u].size()<bitSize[u]+1) {
+            colorBit[u].resize(bitSize[u]+1);
+             for (i = adj[u].begin(); i != adj[u].end(); ++i){
+                 if (color[*i]==true)
+                     it.push_back(i);
+             }
+             for (int j = 0; j < it.size(); j++){
+                 adj[u].erase(it[j]);
+             }
         } else {
-            colorBit[u][bitSize[u]] = 0;
-            bitSize[u]=bitSize[u]+1;
-            bitSizeMin[u]=bitSize[u];
-
-            cout << "bitSize: " << bitSize[u]<<endl;
-            colorBit[u].resize( bitSize[u]+1);
-
-        }
-
-        if (marked[u]==true){
 
             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-
-                if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] ){
-
-                    if (bitSize[*i] < bitSize[u])
-                    {
-                        bitSize[*i]=bitSize[u];
-                        bitSizeMin[*i]=bitSize[u];
-                        colorBit[*i].resize(bitSize[u]+1);
-                        marked[*i]=true;
-                        color[u]=-1;
-                        uncolored++;
-                        cout << "powiekszam wezel numer: " << *i<<endl;
-                    }
-
-                } else {
-
-                    if (color[*i] != -1){
-                        it.push_back(i);
-                        cout << "usuwam wezel numer: " << *i<<endl;
-                    }
-
+               // cout << "petla, vector: " << *i << endl;
+                if (color[*i] != -1){
+                   if (colorBit[*i][bitSize[u]]==0)
+                       used[0] = true;
+                   else if (colorBit[*i][bitSize[u]]==1)
+                       used[1] = true;
                 }
             }
-        }
 
-        for (int j = 0; j < it.size(); j++){
-            adj[u].erase(it[j]);
-        }
 
-                        // Reset the values back to false for the next iteration
-       // if (!adj[u].empty())
-         for (i = adj[u].begin(); i != adj[u].end(); ++i){
-              cout << "ustawiam pozostale wartosc na true-false: " << *i << endl;
-                if (color[*i] != -1){
-                    used[0] = false;
-                    used[1] = false;
+            // Find the first available color
+            int cr;
+            for (cr = 0; cr <= 2; cr++)
+                if (used[cr] == false)
+                    break;
+
+
+            cout << "kolor dostepny: " << cr << endl;
+            if (cr == 0 || cr == 1)
+            {   colorBit[u][bitSize[u]] = cr; // Assign the found color
+                color[u]=1;
+                marked[u]=false;
+                uncolored--;
+                bitSizeMin[u]=9999;
+            } else {
+                colorBit[u][bitSize[u]] = 0;
+                bitSize[u]=bitSize[u]+1;
+                bitSizeMin[u]=bitSize[u];
+
+                cout << "bitSize: " << bitSize[u]<<endl;
+                colorBit[u].resize( bitSize[u]+1);
+
+            }
+
+            if (marked[u]==true){
+
+                for (i = adj[u].begin(); i != adj[u].end(); ++i){
+
+                    if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] ){
+
+                        if (bitSize[*i] < bitSize[u])
+                        {
+                            bitSize[*i]=bitSize[u];
+                            bitSizeMin[*i]=bitSize[u];
+                            marked[*i]=true;
+                            color[u]=-1;
+                            uncolored++;
+                            cout << "powiekszam wezel numer: " << *i<<endl;
+                        }
+
+                    } else {
+
+                        if (color[*i] != -1){
+                            it.push_back(i);
+                            cout << "usuwam wezel numer: " << *i<<endl;
+                        }
+
+                    }
                 }
-         }
+            }
 
+            for (int j = 0; j < it.size(); j++){
+                adj[u].erase(it[j]);
+            }
+
+                            // Reset the values back to false for the next iteration
+           // if (!adj[u].empty())
+             for (i = adj[u].begin(); i != adj[u].end(); ++i){
+                  cout << "ustawiam pozostale wartosc na false: " << *i << endl;
+                    if (color[*i] != -1){
+                        used[0] = false;
+                        used[1] = false;
+                    }
+             }
+        }
     }
 
     //cout << "wyjscie z petli" << endl;
