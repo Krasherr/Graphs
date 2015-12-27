@@ -17,8 +17,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton_2->setText("Wczytaj liczbę");
     connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(inputText()));
     ui->pushButton_3->setText("Stworz graf");
-    connect(ui->pushButton_3, SIGNAL(clicked()),this, SLOT(colorGraph()));
-
+    connect(ui->pushButton_3, SIGNAL(clicked()),this, SLOT(createGraph()));
+    ui->pushButton_4->setText("Kolorowanie grafu LFR");
+    connect(ui->pushButton_4, SIGNAL(clicked()),this, SLOT(LFRGraph()));
+    ui->pushButton_5->setText("Kolorowanie grafu LFR Bit");
+    connect(ui->pushButton_5, SIGNAL(clicked()),this, SLOT(LFRBitGraph()));
+    ui->pushButton_6->setText("Kolorowanie grafu Equal Bit");
+    connect(ui->pushButton_6, SIGNAL(clicked()),this, SLOT(EqualBitGraph()));
 }
 
 MainWindow::~MainWindow()
@@ -52,7 +57,7 @@ int MainWindow::getU(){
     return varU;
 }
 
-void MainWindow::colorGraph()
+void MainWindow::createGraph()
 {
     /*Graph g1(4);
     g1.addEdge(0, 1);
@@ -88,7 +93,7 @@ void MainWindow::colorGraph()
     g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
-             int x = it->size();
+             int x = it->size();    //Sprawdzenie ile linii jest w danym rozwinietym wezle.
         for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
 
              int key1 = key + x;
@@ -115,4 +120,16 @@ void MainWindow::colorGraph()
     g.LFRBitColoring();
     cout << "start EqualBitColoring" << endl;
     g.EqualBitColoring();*/
+}
+
+void MainWindow::LFRGraph() {
+    g.LFRColoring();
+}
+
+void MainWindow::LFRBitGraph() {
+    g.LFRBitColoring();
+}
+
+void MainWindow::EqualBitGraph() {
+    g.EqualBitColoring();
 }

@@ -25,7 +25,10 @@ private:
 private slots:
     void handleButton();
     void inputText();
-    void colorGraph();
+    void createGraph();
+    void LFRGraph();
+    void LFRBitGraph();
+    void EqualBitGraph();
 };
 
 #endif // MAINWINDOW_H
