@@ -8,14 +8,7 @@
 using namespace std;
 class Graph
 {
-    int V;    // No. of vertices
-    list<int> *adj;    // A dynamic array of adjacency lists
-    vector<int> color;
-    vector<int> tmp;
-    vector<int> bitSize;
-    vector<int> bitSizeMin;
-    vector<bool> marked;
-    vector<boost::dynamic_bitset<> > colorBit;
+
 public:
     // Constructor and destructor
     Graph();
@@ -31,8 +24,18 @@ public:
     void createGraph(QList<QString> strList, int u);
     int getTmp();
     int getBitTmp();
+    int setV(int count) { this->V = count; adj = new list<int>[V];}
 
+private:
 
+    int V;    // No. of vertices
+    list<int> *adj;    // A dynamic array of adjacency lists
+    vector<int> color;
+    vector<int> tmp;
+    vector<int> bitSize;
+    vector<int> bitSizeMin;
+    vector<bool> marked;
+    vector<boost::dynamic_bitset<> > colorBit;
 };
 
 #endif // GRAPH_H

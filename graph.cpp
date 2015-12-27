@@ -5,7 +5,10 @@
 #include <QDebug>
 #include "boost/dynamic_bitset.hpp"
 
+Graph::Graph()
+{
 
+}
 
 void Graph::addEdge(int v, int w)
 {
@@ -448,7 +451,7 @@ void Graph::createGraph(QList<QString> strList, int u){
         int output;
         int input;
 
-    for(int it = 0; it<strList.size(); it++) {
+  /*  for(int it = 0; it<strList.size(); it++) {
         QVector<QString> v;
             if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0'){
                 v.push_back(strList.at(it).mid(0,1));
@@ -510,7 +513,7 @@ void Graph::createGraph(QList<QString> strList, int u){
     std::cout << "input: " << input << endl;
     std::cout << "output: " << output << endl;
     std::cout << "node count: " << count << endl;
-    Graph g(count);
+   // Graph g(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
 
@@ -533,7 +536,7 @@ void Graph::createGraph(QList<QString> strList, int u){
         }
     index++;
     }
-    g.LFRColoring();
+    //g.LFRColoring();*/
 
 
 }

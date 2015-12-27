@@ -16,11 +16,16 @@ public:
 
     void chooseFile();
     QList<QString> getList() { return fileList; }
+    int getInput() { return input; }
+    int getOutput() { return output; }
+    QVector<QVector<QString>> createNodes(QList<QString> strList);
 
 
 private:
     QString fileName;
     QList<QString> fileList;
+    int output;
+    int input;
 
 
 };

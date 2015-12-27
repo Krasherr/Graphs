@@ -20,6 +20,8 @@ public:
 private:
     Ui::MainWindow *ui;
     int varU;
+    int count;
+
 private slots:
     void handleButton();
     void inputText();
