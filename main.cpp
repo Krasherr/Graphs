@@ -17,15 +17,15 @@
 int main(int argc, char *argv[])
 {
 
-  /*  QApplication a(argc, argv);
+    QApplication a(argc, argv);
     QTextStream out(stdout);
     MainWindow w;
     w.show();
 
-    return a.exec();*/
+    return a.exec();
 
 
-    Graph g2(4);
+   /* Graph g2(4);
     g2.addEdge(0, 1);
     g2.addEdge(0, 2);
     g2.addEdge(0, 3);
@@ -34,13 +34,25 @@ int main(int argc, char *argv[])
     g2.addEdge(2, 3);
 
     cout << "\nColoring of Graph 2 \n";
-    g2.LFRColoring();
-    g2.LFRBitColoring();
+    //g2.LFRColoring();
+   // g2.LFRBitColoring();
+    g2.EqualBitColoring();*/
   //  std::list<std::string> fileList;
   //  fileList = chooseFile(argc, argv);
 
    //      return 0;
 
+   /* Graph g2(6);
+        g2.addEdge(0, 1);
+        g2.addEdge(0, 3);
+        g2.addEdge(0, 5);
+        g2.addEdge(1, 2);
+        g2.addEdge(1, 4);
+        g2.addEdge(2, 3);
+        g2.addEdge(2, 4);
+        g2.addEdge(3, 5);
+        g2.addEdge(4, 5);
+    g2.EqualBitColoring();*/
 }
 
 /*int main(int, char*[])
