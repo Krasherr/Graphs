@@ -88,9 +88,10 @@ void MainWindow::colorGraph()
     g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
-
+             int x = it->size();
         for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
-             int key1 = key +1;
+
+             int key1 = key + x;
              std::cout << key << " : "<< itt->toStdString()<<endl;
 
              for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
@@ -104,7 +105,7 @@ void MainWindow::colorGraph()
 
                       } key1++;
                  }
-             } key++;
+             } key++; x--;
         }
     index++;
     }
