@@ -50,7 +50,7 @@ int Graph::getBitTmp()
 
 void Graph::LFRColoring()
 {
-
+    list<int> *adj = Graph::adj;
      //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
     int uncolored=0;
     //tmp = new vector <int> (V);
@@ -112,6 +112,7 @@ void Graph::LFRColoring()
 
 void Graph::LFRBitColoring()
 {
+    list<int> *adj = Graph::adj;
     const boost::dynamic_bitset<> bZero(1, 0ul);
     int uncolored=0;
     for (int u = 0; u<V; u++){
@@ -265,6 +266,7 @@ void Graph::LFRBitColoring()
 
 void Graph::EqualBitColoring()
 {
+    list<int> *adj = Graph::adj;
     const boost::dynamic_bitset<> bZero(1, 0ul);
     int uncolored=0;
     for (int u = 0; u<V; u++){
