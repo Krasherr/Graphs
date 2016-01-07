@@ -16,12 +16,12 @@
 int main(int argc, char *argv[])
 {
 
-    QApplication a(argc, argv);
+   /* QApplication a(argc, argv);
     QTextStream out(stdout);
     MainWindow w;
     w.show();
 
-    return a.exec();
+    return a.exec();*/
 
 
    /* Graph g2(4);
@@ -52,6 +52,26 @@ int main(int argc, char *argv[])
         g2.addEdge(3, 5);
         g2.addEdge(4, 5);
     g2.EqualBitColoring();*/
+    std::clock_t start;
+        double duration;
+
+
+
+        /* Your algorithm here */
+
+
+    int gSize = 4;
+    Graph g(gSize);
+        for (int i = 0; i<gSize; i++){
+            for (int j = i+1; j<gSize; j++){
+                g.addEdge(i,j);
+            }
+        }
+                start = std::clock();
+    g.LFRBitColoring2();
+    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+
+    std::cout<<"printf: "<< duration <<'\n';
 }
 
 /*int main(int, char*[])

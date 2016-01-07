@@ -542,3 +542,127 @@ void Graph::createGraph(QList<QString> strList, int u){
 
 
 }
+
+void Graph::LFRBitColoring2()
+{
+    list<int> *adj = Graph::adj;
+    const boost::dynamic_bitset<> bZero(1, 0ul);
+    int uncolored=0;
+    for (int u = 0; u<V; u++){
+        tmp.push_back(adj[u].size());
+    }
+
+    //vector <int> result(V);
+    // Assign the first color to first vertex
+
+    //int zero = 0, one = 0;
+    for (int u = 0; u < V; u++){
+        uncolored++;
+        color.push_back(-1);
+        colorBit.push_back(bZero);  // no color is assigned to u
+    }
+
+
+    vector<bool> used(2);
+    for (int cr = 0; cr < 2; cr++)
+        used[cr] = false;
+
+    for (int cr = 0; cr < V; cr++){
+        bitSize.push_back(0);
+        bitSizeMin.push_back(0);
+        marked.push_back(true);
+    }
+
+    cout << "po ustawieniu kolorow na -1" << endl;
+    //result[0] = b0;
+   // zero++;
+    // Initialize remaining V-1 vertices as unassigned
+    while (uncolored>0)
+    {
+                cout << "petla, uncolored: " << uncolored << endl;
+        int u;
+        vector<std::list<int>::iterator> it;
+        // Process all adjacent vertices and flag their colors
+        // as unavailable
+        u = getBitTmp();
+         cout << "petla, vector: " << u << endl;
+        list<int>::iterator i;
+
+
+            for (i = adj[u].begin(); i != adj[u].end(); ++i){
+               // cout << "petla, vector: " << *i << endl;
+                if (color[*i] != -1){
+                   if (colorBit[*i][bitSize[u]]==0)
+                       used[0] = true;
+                   else if (colorBit[*i][bitSize[u]]==1)
+                       used[1] = true;
+                }
+            }
+
+            // Find the first available color
+            int cr;
+            for (cr = 0; cr <= 2; cr++)
+                if (used[cr] == false)
+                    break;
+
+
+            cout << "kolor dostepny: " << cr << endl;
+            if (cr == 0 || cr == 1)
+            {   colorBit[u][bitSize[u]] = cr; // Assign the found color
+                color[u]=1;
+                marked[u]=false;
+                uncolored--;
+                bitSizeMin[u]=9999;
+            } else {
+                colorBit[u][bitSize[u]] = 0;
+                bitSize[u]=bitSize[u]+1;
+                bitSizeMin[u]=bitSize[u];
+                cout << "bitSize: " << bitSize[u]<<endl;
+                colorBit[u].resize( bitSize[u]+1);
+                uncolored--;
+            }
+
+
+
+          /*  for (int j = 0; j < it.size(); j++){
+                adj[u].erase(it[j]);
+            }*/
+
+                            // Reset the values back to false for the next iteration
+           // if (!adj[u].empty())
+             for (i = adj[u].begin(); i != adj[u].end(); ++i){
+                  cout << "ustawiam pozostale wartosc na false: " << *i << endl;
+                    if (color[*i] != -1){
+                        used[0] = false;
+                        used[1] = false;
+                    }
+             }
+
+             if (uncolored == 0) {
+                if (colorBit[u].size()<bitSize[u]+1) {
+                    colorBit[u].resize(bitSize[u]+1);
+                }
+             }
+    }
+
+    //cout << "wyjscie z petli" << endl;
+
+    for (int u = 0; u < V; u++){
+        std::cout << "Vertex " << u << " --->  Size "
+            << colorBit[u].size() << std::endl;
+        for (int i = 0; i<=*max_element(bitSize.begin(), bitSize.end()); i++)
+            if(i>bitSize[u]){
+                std::cout << "Vertex " << u << " --->  Color -"
+                 << std::endl;
+            } else
+                std::cout << "Vertex " << u << " --->  Color "
+                << colorBit[u][i] << std::endl;
+    }
+
+
+
+    colorBit.clear();
+    color.clear();
+    bitSize.clear();
+    marked.clear();
+}
