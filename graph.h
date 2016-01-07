@@ -20,6 +20,7 @@ public:
     // Prints greedy coloring of the vertices
     void LFRColoring();
     void LFRBitColoring();
+    void LFRBitColoring2();
     void EqualBitColoring();
     int getTmp();
     int getBitTmp();
