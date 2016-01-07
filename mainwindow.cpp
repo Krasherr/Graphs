@@ -106,7 +106,7 @@ void MainWindow::createGraph()
              for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
                  for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
                       std::cout << key1 << " : " << itttt->toStdString()<<endl;
-                      if (itt->mid(0,input-u)==itttt->mid(0,input-u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
+                      if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
                           g.addEdge(key,key1);
 
                           cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;

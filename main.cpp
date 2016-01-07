@@ -5,7 +5,6 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QDebug>
-#include <boost/dynamic_bitset.hpp>
 #include <iostream>
 #include "graph.h"
 //#include "filereader.h"
