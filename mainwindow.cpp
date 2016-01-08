@@ -105,10 +105,8 @@ void MainWindow::createGraph()
 
              for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
                  for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
-<<<<<<< HEAD
-=======
+
                       std::cout << key1 << " : " << itttt->toStdString()<<endl;
->>>>>>> origin/master
                       if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
                           g.addEdge(key,key1);
 

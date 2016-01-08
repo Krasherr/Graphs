@@ -168,6 +168,9 @@ void Graph::LFRBitColoring()
 
             for (i = adj[u].begin(); i != adj[u].end(); ++i){
                // cout << "petla, vector: " << *i << endl;
+                if (used[0]==true && used[1]==true){
+                                       break;
+                                   }
                 if (color[*i] != -1){
                    if (colorBit[*i][bitSize[u]]==0)
                        used[0] = true;
@@ -190,7 +193,7 @@ void Graph::LFRBitColoring()
                 color[u]=1;
                 marked[u]=false;
                 uncolored--;
-                bitSizeMin[u]=9999;
+                bitSizeMin[u]=9999999;
             } else {
                 colorBit[u][bitSize[u]] = 0;
                 bitSize[u]=bitSize[u]+1;
@@ -212,7 +215,6 @@ void Graph::LFRBitColoring()
                             bitSize[*i]=bitSize[u];
                             bitSizeMin[*i]=bitSize[u];
                             marked[*i]=true;
-                            color[u]=-1;
                             uncolored++;
                             cout << "powiekszam wezel numer: " << *i<<endl;
                         }
@@ -234,12 +236,12 @@ void Graph::LFRBitColoring()
 
                             // Reset the values back to false for the next iteration
            // if (!adj[u].empty())
-             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-                    if (color[*i] != -1){
+         //    for (i = adj[u].begin(); i != adj[u].end(); ++i){
+          //          if (color[*i] != -1){
                         used[0] = false;
                         used[1] = false;
-                    }
-             }
+           //         }
+            // }
         }
     }
 
@@ -368,7 +370,7 @@ void Graph::EqualBitColoring()
                 marked[u]=false;
                 uncolored--;
                 one++;
-                bitSizeMin[u]=9999;
+                bitSizeMin[u]=9999999;
             } else {
                 if (zero<=one){
                      colorBit[u][bitSize[u]] = 0;
@@ -445,225 +447,3 @@ void Graph::EqualBitColoring()
     bitSize.clear();
     marked.clear();
 }
-
-<<<<<<< HEAD
-=======
-void Graph::createGraph(QList<QString> strList, int u){
-        QVector<QVector<QString>> extList;
-        int output;
-        int input;
-
-  /*  for(int it = 0; it<strList.size(); it++) {
-        QVector<QString> v;
-            if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0'){
-                v.push_back(strList.at(it).mid(0,1));
-            }
-            else if (strList.at(it)[0] == '-'){
-                int size = v.size();
-                for (int j = 0; j < size; j++ )
-                    v.push_back(v[j]);
-
-                for (int j = 0; j <  v.size(); j++ ) {
-                    QString c;
-                    if (j % 2==0)
-                        c = "0";
-                    else
-                        c = "1";
-                    v[j].append(c);
-                 }
-            } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'o'){
-                output = strList.at(it).mid(3,4).toInt();
-            } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'i'){
-                input = strList.at(it).mid(3,4).toInt();
-            }
-            for (int i=1; i < strList.at(it).size(); ++i ) {
-                if (strList.at(it)[i] == '-') {
-                    int size = v.size();
-                    for (int j = 0; j < size; j++ )
-                        v.push_back(v[j]);
-
-                    for (int j = 0; j <  v.size(); j++ ) {
-                        QString c;
-                        if (j % 2==0)
-                            c = "0";
-                        else
-                            c = "1";
-                        v[j].append(c);
-                    }
-                } else if (strList.at(it)[i] == '1' || strList.at(it)[i] == '0') {
-                    for (int j = 0; j <  v.size(); j++ ) {
-                        v[j].append(strList.at(it).mid(i,1));
-                    }
-                }
-            }
-         if (!v.empty()){
-            extList.push_back(v);
-        }
-
-    }
-
-    int index = 1;
-    int count = 0;
-    int key = 0;
-
-    for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it){
-
-        count = count + it->count();
-
-    }
-    std::cout << "varU: " << u << endl;
-    std::cout << "input: " << input << endl;
-    std::cout << "output: " << output << endl;
-    std::cout << "node count: " << count << endl;
-   // Graph g(count);
-
-    for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
-
-        for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
-             int key1 = key +1;
-             std::cout << key << " : "<< itt->toStdString()<<endl;
-
-             for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
-                 for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
-                      std::cout << key1 << " : " << itttt->toStdString()<<endl;
-                      if (itt->mid(0,input-u)==itttt->mid(0,input-u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
-                          g.addEdge(key,key1);
-
-                          cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
-                      }else {
-
-                      } key1++;
-                 }
-             } key++;
-        }
-    index++;
-    }
-    //g.LFRColoring();*/
-
-
-}
-
-void Graph::LFRBitColoring2()
-{
-    list<int> *adj = Graph::adj;
-    const boost::dynamic_bitset<> bZero(1, 0ul);
-    int uncolored=0;
-    for (int u = 0; u<V; u++){
-        tmp.push_back(adj[u].size());
-    }
-
-    //vector <int> result(V);
-    // Assign the first color to first vertex
-
-    //int zero = 0, one = 0;
-    for (int u = 0; u < V; u++){
-        uncolored++;
-        color.push_back(-1);
-        colorBit.push_back(bZero);  // no color is assigned to u
-    }
-
-
-    vector<bool> used(2);
-    for (int cr = 0; cr < 2; cr++)
-        used[cr] = false;
-
-    for (int cr = 0; cr < V; cr++){
-        bitSize.push_back(0);
-        bitSizeMin.push_back(0);
-        marked.push_back(true);
-    }
-
-    cout << "po ustawieniu kolorow na -1" << endl;
-    //result[0] = b0;
-   // zero++;
-    // Initialize remaining V-1 vertices as unassigned
-    while (uncolored>0)
-    {
-                cout << "petla, uncolored: " << uncolored << endl;
-        int u;
-        vector<std::list<int>::iterator> it;
-        // Process all adjacent vertices and flag their colors
-        // as unavailable
-        u = getBitTmp();
-         cout << "petla, vector: " << u << endl;
-        list<int>::iterator i;
-
-
-            for (i = adj[u].begin(); i != adj[u].end(); ++i){
-               // cout << "petla, vector: " << *i << endl;
-                if (color[*i] != -1){
-                   if (colorBit[*i][bitSize[u]]==0)
-                       used[0] = true;
-                   else if (colorBit[*i][bitSize[u]]==1)
-                       used[1] = true;
-                }
-            }
-
-            // Find the first available color
-            int cr;
-            for (cr = 0; cr <= 2; cr++)
-                if (used[cr] == false)
-                    break;
-
-
-            cout << "kolor dostepny: " << cr << endl;
-            if (cr == 0 || cr == 1)
-            {   colorBit[u][bitSize[u]] = cr; // Assign the found color
-                color[u]=1;
-                marked[u]=false;
-                uncolored--;
-                bitSizeMin[u]=9999;
-            } else {
-                colorBit[u][bitSize[u]] = 0;
-                bitSize[u]=bitSize[u]+1;
-                bitSizeMin[u]=bitSize[u];
-                cout << "bitSize: " << bitSize[u]<<endl;
-                colorBit[u].resize( bitSize[u]+1);
-                uncolored--;
-            }
-
-
-
-          /*  for (int j = 0; j < it.size(); j++){
-                adj[u].erase(it[j]);
-            }*/
-
-                            // Reset the values back to false for the next iteration
-           // if (!adj[u].empty())
-             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-                  cout << "ustawiam pozostale wartosc na false: " << *i << endl;
-                    if (color[*i] != -1){
-                        used[0] = false;
-                        used[1] = false;
-                    }
-             }
-
-             if (uncolored == 0) {
-                if (colorBit[u].size()<bitSize[u]+1) {
-                    colorBit[u].resize(bitSize[u]+1);
-                }
-             }
-    }
-
-    //cout << "wyjscie z petli" << endl;
-
-    for (int u = 0; u < V; u++){
-        std::cout << "Vertex " << u << " --->  Size "
-            << colorBit[u].size() << std::endl;
-        for (int i = 0; i<=*max_element(bitSize.begin(), bitSize.end()); i++)
-            if(i>bitSize[u]){
-                std::cout << "Vertex " << u << " --->  Color -"
-                 << std::endl;
-            } else
-                std::cout << "Vertex " << u << " --->  Color "
-                << colorBit[u][i] << std::endl;
-    }
-
-
-
-    colorBit.clear();
-    color.clear();
-    bitSize.clear();
-    marked.clear();
-}
->>>>>>> origin/master
