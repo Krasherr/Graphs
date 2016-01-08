@@ -164,7 +164,8 @@ void Graph::LFRBitColoring()
              for (int j = 0; j < it.size(); j++){
                  adj[u].erase(it[j]);
              }
-        } else {
+             break;
+        }
 
             for (i = adj[u].begin(); i != adj[u].end(); ++i){
                // cout << "petla, vector: " << *i << endl;
@@ -227,7 +228,7 @@ void Graph::LFRBitColoring()
                         }
 
                     }
-                }
+
             }
 
             for (int j = 0; j < it.size(); j++){
