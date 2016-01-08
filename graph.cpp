@@ -312,6 +312,9 @@ void Graph::LFRBitColoring()
 void Graph::EqualBitColoring()
 {
     list<int> *adj = Graph::adj;
+    list<int> *adj2 = new list<int> [V];
+    int V=Graph::V;
+    int tmp_V=V;
     const boost::dynamic_bitset<> bZero(1, 0ul);
     int uncolored=0;
     for (int u = 0; u<V; u++){
@@ -338,7 +341,8 @@ void Graph::EqualBitColoring()
         //bitSizeMin.push_back(0);
         marked.push_back(true);
     }
-
+    bitSizeMin=0;
+    int rounds=0;
     cout << "po ustawieniu kolorow na -1" << endl;
     //result[0] = b0;
    // zero++;
@@ -347,43 +351,75 @@ void Graph::EqualBitColoring()
     {
                 cout << "petla, uncolored: " << uncolored << endl;
         int u;
-        vector<std::list<int>::iterator> it;
+        vector<int> it;
         // Process all adjacent vertices and flag their colors
         // as unavailable
         u = getBitTmp();
          cout << "petla, vector: " << u << endl;
-        list<int>::iterator i;
+        list<int>::iterator i, j;
 
         if (colorBit[u].size()<bitSize[u]+1) {
             colorBit[u].resize(bitSize[u]+1);
              for (i = adj[u].begin(); i != adj[u].end(); ++i){
+
                  if (color[*i]==true)
-                     it.push_back(i);
+                     it.push_back(*i);
              }
              for (int j = 0; j < it.size(); j++){
-                 adj[u].erase(it[j]);
+                 adj[u].remove(it[j]);
+            //     adj2[u].remove(it[j]);
              }
-        } else {
-
+            //bitSizeMin=bitSize[u]+1;
+            adj2[u].clear();
             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-               // cout << "petla, vector: " << *i << endl;
-                if (color[*i] != -1){
-                   if (colorBit[*i][bitSize[u]]==0)
-                       used[0] = true;
-                   else if (colorBit[*i][bitSize[u]]==1)
-                       used[1] = true;
-                }
+                adj2[*i].clear();
             }
+
+             continue;
+        }
+
+        if (adj2[u].empty()){
+           // used[0]==true;
+            for (i = adj[u].begin(); i != adj[u].end(); ++i){
+                adj2[*i].push_back(u);
+            }
+        }
+
+        else {
+
+            for (i = adj2[u].begin(); i != adj2[u].end(); ++i){
+               // cout << "petla, vector: " << *i << endl;
+                if (used[0]==true && used[1]==true){
+                   break;
+                   }
+                if (color[*i] != -1){
+                   if (colorBit[*i][bitSize[u]]==0){
+                       used[0] = true;
+                   }
+                   else if (colorBit[*i][bitSize[u]]==1){
+                       used[1] = true;
+                   }
+
+
+                }
+
+
+            }
+            if (!(used[0]==true && used[1]==true))
+                for (j = adj[u].begin(); j != adj[u].end(); ++j){
+                   adj2[*j].push_back(u);
+                }
+        }
 
 
             // Find the first available color
-           /* int cr;
+            int cr;
             for (cr = 0; cr <= 2; cr++)
                 if (used[cr] == false)
-                    break;*/
+                    break;
 
 
-          //  cout << "kolor dostepny: " << cr << endl;
+            cout << "kolor dostepny: " << cr << endl;
             if (used[0] == false && used[1] == false)
             {
                 if (zero<=one){
@@ -392,6 +428,7 @@ void Graph::EqualBitColoring()
                     marked[u]=false;
                     uncolored--;
                     zero++;
+                    tmp_V--;
                     //bitSizeMin[u]=99999999;
                 } else {
                     colorBit[u][bitSize[u]] = 1; // Assign the found color
@@ -399,6 +436,7 @@ void Graph::EqualBitColoring()
                     marked[u]=false;
                     uncolored--;
                     one++;
+                    tmp_V--;
                //     bitSizeMin[u]=99999999;
                 }
             } else if (used[0] == false){
@@ -407,6 +445,7 @@ void Graph::EqualBitColoring()
                 marked[u]=false;
                 uncolored--;
                 zero++;
+                tmp_V--;
               //  bitSizeMin[u]=99999999;
             } else if (used[1] == false){
                 colorBit[u][bitSize[u]] = 1; // Assign the found color
@@ -414,6 +453,7 @@ void Graph::EqualBitColoring()
                 marked[u]=false;
                 uncolored--;
                 one++;
+                tmp_V--;
              //   bitSizeMin[u]=9999999;
             } else {
                 if (zero<=one){
@@ -441,35 +481,40 @@ void Graph::EqualBitColoring()
                             bitSize[*i]=bitSize[u];
                     //        bitSizeMin[*i]=bitSize[u];
                             marked[*i]=true;
-                            color[u]=-1;
                             uncolored++;
+                            tmp_V++;
                             cout << "powiekszam wezel numer: " << *i<<endl;
                         }
 
                     } else {
 
                         if (color[*i] != -1){
-                            it.push_back(i);
+                            it.push_back(*i);
                             cout << "usuwam wezel numer: " << *i<<endl;
                         }
 
                     }
+
                 }
             }
 
             for (int j = 0; j < it.size(); j++){
-                adj[u].erase(it[j]);
+                adj[u].remove(it[j]);
+                adj2[u].remove(it[j]);
             }
 
-                            // Reset the values back to false for the next iteration
-           // if (!adj[u].empty())
-             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-                    if (color[*i] != -1){
-                        used[0] = false;
-                        used[1] = false;
-                    }
-             }
-        }
+            used[0] = false;
+            used[1] = false;
+
+            cout << "rounds" << rounds << endl;
+            cout << "tmp_V" << tmp_V << endl;
+            rounds++;
+            if (rounds == V){
+                V=tmp_V;
+                bitSizeMin++;
+                cout << "V" << V << endl;
+                rounds = 0;
+            }
     }
 
     //cout << "wyjscie z petli" << endl;

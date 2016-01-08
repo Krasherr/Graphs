@@ -60,16 +60,16 @@ int main(int argc, char *argv[])
         /* Your algorithm here */
 
 
-  int gSize = 1000;
+  int gSize = 4;
     Graph g(gSize);
         for (int i = 0; i<gSize; i++){
             for (int j = i+1; j<gSize; j++){
-                if (j%3==0)
+                //if (j%3==0)
                 g.addEdge(i,j);
             }
         }
                 start = std::clock();
-    g.LFRBitColoring();
+    g.EqualBitColoring();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
     std::cout<<"printf: "<< duration <<'\n';
