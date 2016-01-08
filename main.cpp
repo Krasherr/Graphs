@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         g2.addEdge(2, 4);
         g2.addEdge(3, 5);
         g2.addEdge(4, 5);
-    g2.EqualBitColoring();*/
+    g2.LFRBitColoring();*/
     std::clock_t start;
         double duration;
 
@@ -60,10 +60,11 @@ int main(int argc, char *argv[])
         /* Your algorithm here */
 
 
-    int gSize = 200;
+  int gSize = 1000;
     Graph g(gSize);
         for (int i = 0; i<gSize; i++){
             for (int j = i+1; j<gSize; j++){
+                if (j%3==0)
                 g.addEdge(i,j);
             }
         }
