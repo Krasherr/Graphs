@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
         /* Your algorithm here */
 
 
-  int gSize = 4;
+  int gSize = 1000;
     Graph g(gSize);
         for (int i = 0; i<gSize; i++){
             for (int j = i+1; j<gSize; j++){
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             }
         }
                 start = std::clock();
-    g.EqualBitColoring();
+    g.LFRBitColoring();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
     std::cout<<"printf: "<< duration <<'\n';

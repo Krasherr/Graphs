@@ -362,7 +362,7 @@ void Graph::EqualBitColoring()
             colorBit[u].resize(bitSize[u]+1);
              for (i = adj[u].begin(); i != adj[u].end(); ++i){
 
-                 if (color[*i]==true)
+                 if (colorBit[*i][bitSize[u]-1]!=colorBit[u][bitSize[u]-1])
                      it.push_back(*i);
              }
              for (int j = 0; j < it.size(); j++){
@@ -473,27 +473,47 @@ void Graph::EqualBitColoring()
             if (marked[u]==true && bitSize[u]>0){
 
                 for (i = adj[u].begin(); i != adj[u].end(); ++i){
+                    if (bitSize[u] < 2){
+                         if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1]){
+                             if (bitSize[*i] < bitSize[u])
+                             {
+                                 bitSize[*i]=bitSize[u];
+                         //        bitSizeMin[*i]=bitSize[u];
+                                 marked[*i]=true;
+                                 uncolored++;
+                                 tmp_V++;
+                                 cout << "powiekszam wezel numer: " << *i<<endl;
+                             }
+                         }else {
 
-                    if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] ){
+                            if (color[*i] != -1){
+                                it.push_back(*i);
+                                cout << "usuwam wezel numer: " << *i<<endl;
+                            }
 
-                        if (bitSize[*i] < bitSize[u])
-                        {
-                            bitSize[*i]=bitSize[u];
-                    //        bitSizeMin[*i]=bitSize[u];
-                            marked[*i]=true;
-                            uncolored++;
-                            tmp_V++;
-                            cout << "powiekszam wezel numer: " << *i<<endl;
                         }
-
                     } else {
+                        if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] && colorBit[*i][bitSize[u]-2]==colorBit[u][bitSize[u]-2])
+                        {
+                            if (bitSize[*i] < bitSize[u])
+                            {
+                                bitSize[*i]=bitSize[u];
+                        //        bitSizeMin[*i]=bitSize[u];
+                                marked[*i]=true;
+                                uncolored++;
+                                tmp_V++;
+                                cout << "powiekszam wezel numer: " << *i<<endl;
+                            } else {
 
-                        if (color[*i] != -1){
-                            it.push_back(*i);
-                            cout << "usuwam wezel numer: " << *i<<endl;
+                                if (color[*i] != -1){
+                                    it.push_back(*i);
+                                    cout << "usuwam wezel numer: " << *i<<endl;
+                                }
+
+                            }
                         }
-
                     }
+
 
                 }
             }
@@ -518,11 +538,11 @@ void Graph::EqualBitColoring()
     }
 
     //cout << "wyjscie z petli" << endl;
-
+    V=Graph::V;
     for (int u = 0; u < V; u++){
         std::cout << "Vertex " << u << " --->  Size "
             << colorBit[u].size() << std::endl;
-        for (int i = 0; i<=*max_element(bitSize.begin(), bitSize.end()); i++)
+        for (int i = 0; i<=bitSizeMin-1; i++)
             if(i>bitSize[u]){
                 std::cout << "Vertex " << u << " --->  Color -"
                  << std::endl;
