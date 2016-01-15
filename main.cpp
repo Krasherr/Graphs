@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
          g2.addEdge(2, 4);
          g2.addEdge(3, 5);
          g2.addEdge(4, 5);
-     g2.LFRBitColoring();
+     g2.EqualBitColoring();
     std::clock_t start;
     double duration;
 

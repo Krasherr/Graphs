@@ -14,11 +14,11 @@ public:
     Graph(int V)
     {
         this->V = V;
-        adj = new list<int>[V];
+        adjacentNodes = new list<int>[V];
     }
     ~Graph()
     {
-        delete[] adj;
+        delete[] adjacentNodes;
     }
 
     // function to add an edge to graph
@@ -37,18 +37,18 @@ public:
     void setV(int count)
     {
         this->V = count;
-        adj = new list<int>[V];
+        adjacentNodes = new list<int>[V];
     }
     void addNode()
     {
         this->V++;
-        adj->resize(V);
+        adjacentNodes->resize(V);
     }
 
 private:
 
     int V;    // No. of vertices
-    list<int> *adj;    // A dynamic array of adjacency lists
+    list<int> *adjacentNodes;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
     vector<int> bitSize;
