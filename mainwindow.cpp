@@ -95,7 +95,7 @@ void MainWindow::createGraph()
     std::cout << "input: " << input << endl;
     std::cout << "output: " << output << endl;
     std::cout << "node count: " << count << endl;
-    g.setV(count);
+    //g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
         int x = it->size();    //Sprawdzenie ile linii jest w danym rozwinietym wezle.
@@ -109,7 +109,7 @@ void MainWindow::createGraph()
 
                     std::cout << key1 << " : " << itttt->toStdString()<<endl;
                     if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)) {
-                        g.addEdge(key,key1);
+   //                     g.addEdge(key,key1);
 
                         cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
                     } else {
@@ -137,22 +137,22 @@ void MainWindow::createGraph()
 
 void MainWindow::LFRGraph()
 {
-    g.LFRColoring();
+    //g.LFRColoring();
 }
 
 void MainWindow::LFRBitGraph()
 {
-    g.LFRBitColoring();
+   // g.LFRBitColoring();
 }
 
 void MainWindow::EqualBitGraph()
 {
-    g.EqualBitColoring();
+   // g.EqualBitColoring();
 }
 
 void MainWindow::addNode()
 {
-    g.addNode();
+    //g.addNode();
     ui->comboBox->addItem(QString::number(g.getV()-1));
     ui->comboBox_2->addItem(QString::number(g.getV()-1));
 }
@@ -164,9 +164,9 @@ void MainWindow::addEdge()
     int node2 = ui->comboBox_2->currentText().toInt();
 
     if (node1 > node2) {
-        g.addEdge(node1, node2);
+        //g.addEdge(node1, node2);
     } else if (node2 > node1) {
-        g.addEdge(node2, node1);
+      //  g.addEdge(node2, node1);
     } else {
         QMessageBox msgBox;
         msgBox.setText("Nie mozesz polaczyc tych samych wezlow!");

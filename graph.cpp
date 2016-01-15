@@ -16,8 +16,8 @@ Graph::Graph()
 
 void Graph::addEdge(int v, int w)
 {
-    adjacentNodes[v].push_back(w);
-    adjacentNodes[w].push_back(v);  // Note: the graph is undirected
+    adjacentNodes[v][w]=1;
+    adjacentNodes[w][v]=1;  // Note: the graph is undirected
 }
 
 
@@ -62,7 +62,7 @@ int Graph::getBitTmp()
  * Algorytm kolorowania klasycznego LF
  */
 
-void Graph::LFRColoring()
+/*void Graph::LFRColoring()
 {
     list<int> *adjacentNodes = Graph::adjacentNodes; //inicjalizacja lokalnej listy wezlow
     int uncolored=V; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
@@ -126,8 +126,8 @@ void Graph::LFRColoring()
 
 void Graph::LFRBitColoring()
 {
-    list<int> *adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
-    list<int> *coloredAdjacentNodes = new list<int> [V]; //stworzenie listy przetrzymujacej juz pokolorowane sasiednie wezly w danej iteracji
+   // list<int> *adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
+   // list<int> *coloredAdjacentNodes = new list<int> [V]; //stworzenie listy przetrzymujacej juz pokolorowane sasiednie wezly w danej iteracji
 
     int V=Graph::V; //stworzenie lokalnej zmiennej przetrzymujacej ilosc wezlow dostepnych w danej iteracji
     int node; //zmienna przetrzymujaca numer wezla
@@ -166,15 +166,15 @@ void Graph::LFRBitColoring()
         node = getBitTmp(); //wybranie wezla
         cout << "petla, vector: " << node << endl;
 
-        list<int>::iterator i, j;
+        vector<int>::iterator i, j;
         vector<int> it;
 
         //sprawdzenie czy pierwszy wezel w nowej iteracji ma mniej bitow kolorujacych niz minimalna ilosc dla iteracji
-        if (colorBit[node].size()<bitSize[node]+1) {
+    /*    if (colorBit[node].size()<bitSize[node]+1) {
             colorBit[node].resize(bitSize[node]+1); //zwiekszenie ilosci bitow kolorujacych
 
             //sprawdzenie czy sasiednie wezly sa pokolorowane
-            for (i = coloredAdjacentNodes[node].begin(); i != coloredAdjacentNodes[node].end(); ++i) {
+            for (i = AdjacentNodes[node].begin(); i != AdjacentNodes[node].end(); ++i) {
                 if (color[*i]==1)
                     it.push_back(*i); //zaznacz je do usuniecia
             }
@@ -189,18 +189,12 @@ void Graph::LFRBitColoring()
             }
             continue;
 
-        }
+        }*/
 
         //przypisz bit 0 do pierwszego wybranego wezla ktorego lista pokolorowanych sasiadow jest pusta
-        if (coloredAdjacentNodes[node].empty()) {
-            used[0]==true;
-            //dodaj wezel do listy pokolorowanych sasiadow dla sasiadujacych wezlow
-            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
-                coloredAdjacentNodes[*i].push_back(node);
-            }
-        } else { //dla kolejnych wezlow
+  //dla kolejnych wezlow
             //sprawdz czy zostal wolny bit
-            for (i = coloredAdjacentNodes[node].begin(); i != coloredAdjacentNodes[node].end(); ++i) {
+            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
                 if (used[0]==true && used[1]==true) {
                     break; //jesli oba bity zostaly uzyte przejdz dalej
                 }
@@ -213,11 +207,7 @@ void Graph::LFRBitColoring()
                 }
             }
 
-            //dodaj wezel do listy pokolorwanych sasiadow
-            for (j = adjacentNodes[node].begin(); j != adjacentNodes[node].end(); ++j) {
-                coloredAdjacentNodes[*j].push_back(node);
-            }
-        }
+
 
         //wybierz bit
         int cr;
@@ -310,7 +300,7 @@ void Graph::LFRBitColoring()
  * Algorytm kolorowania bitowego równomiernego
  */
 
-
+/*
 void Graph::EqualBitColoring()
 {
     list<int> *adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
@@ -533,3 +523,4 @@ void Graph::EqualBitColoring()
     bitSize.clear();
     marked.clear();
 }
+*/

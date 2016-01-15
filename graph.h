@@ -1,7 +1,9 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <list>
+#include <vector>
+#include <array>
+#include <iostream>
 #include <QApplication>
 #include "boost/dynamic_bitset.hpp"
 
@@ -11,18 +13,27 @@ class Graph {
 public:
     // Constructor and destructor
     Graph();
-    Graph(int V)
+    Graph(const int& V) : V(V)
     {
-        this->V = V;
-        adjacentNodes = new list<int>[V];
+        adjacentNodes.resize(V, std::vector<int>(V,0));
+
     }
     ~Graph()
     {
-        delete[] adjacentNodes;
+        //delete[] adjacentNodes;
     }
 
     // function to add an edge to graph
     void addEdge(int v, int w);
+    void printGraph(){
+        for (int i=0; i<V; i++){
+            for (int j=0; j<V; j++){
+                cout << adjacentNodes[i][j];
+            }
+            cout << endl;
+        }
+    }
+
     // Prints greedy coloring of the vertices
     void LFRColoring();
     void LFRBitColoring();
@@ -34,7 +45,7 @@ public:
     {
         return V;
     }
-    void setV(int count)
+/*    void setV(int count)
     {
         this->V = count;
         adjacentNodes = new list<int>[V];
@@ -43,12 +54,12 @@ public:
     {
         this->V++;
         adjacentNodes->resize(V);
-    }
+    }*/
 
 private:
 
     int V;    // No. of vertices
-    list<int> *adjacentNodes;    // A dynamic array of adjacency lists
+    std::vector<std::vector<int>> adjacentNodes;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
     vector<int> bitSize;
