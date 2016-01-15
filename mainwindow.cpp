@@ -95,7 +95,7 @@ void MainWindow::createGraph()
     std::cout << "input: " << input << endl;
     std::cout << "output: " << output << endl;
     std::cout << "node count: " << count << endl;
-    //g.setV(count);
+    g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
         int x = it->size();    //Sprawdzenie ile linii jest w danym rozwinietym wezle.

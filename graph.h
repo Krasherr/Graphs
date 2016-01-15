@@ -16,11 +16,10 @@ public:
     Graph(const int& V) : V(V)
     {
         adjacentNodes.resize(V, std::vector<int>(V,0));
-
+        edgeValue.resize(V,1);
     }
     ~Graph()
     {
-        //delete[] adjacentNodes;
     }
 
     // function to add an edge to graph
@@ -45,16 +44,17 @@ public:
     {
         return V;
     }
-/*    void setV(int count)
+    void setV(const int &count)
     {
-        this->V = count;
-        adjacentNodes = new list<int>[V];
+        this -> V = count;
+        adjacentNodes.resize(count, std::vector<int>(count,0));
+        edgeValue.resize(V,1);
     }
     void addNode()
     {
         this->V++;
-        adjacentNodes->resize(V);
-    }*/
+        adjacentNodes.resize(V, std::vector<int>(V,0));
+    }
 
 private:
 
@@ -62,6 +62,7 @@ private:
     std::vector<std::vector<int>> adjacentNodes;    // A dynamic array of adjacency lists
     vector<int> color;
     vector<int> tmp;
+    vector<int> edgeValue;
     vector<int> bitSize;
     int bitSizeMin;
     vector<bool> marked;

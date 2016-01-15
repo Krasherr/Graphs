@@ -62,13 +62,15 @@ int Graph::getBitTmp()
  * Algorytm kolorowania klasycznego LF
  */
 
-/*void Graph::LFRColoring()
+void Graph::LFRColoring()
 {
-    list<int> *adjacentNodes = Graph::adjacentNodes; //inicjalizacja lokalnej listy wezlow
+    std::vector<std::vector<int>> adjacentNodes = Graph::adjacentNodes; //inicjalizacja lokalnej listy wezlow
     int uncolored=V; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
     int node; //wezel
+    int pos;
+    vector<int>::iterator i;
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()); //lista przechowujaca ilosc sasiadow kazdego z wezlow do pozniejszego wybrania
+        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //lista przechowujaca ilosc sasiadow kazdego z wezlow do pozniejszego wybrania
     }
 
     //ustawienie wszystkich wezlow jako niepokolorowane
@@ -87,11 +89,13 @@ int Graph::getBitTmp()
 
         node = getTmp(); //wybor wezla
 
-        list<int>::iterator i;
 
-        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) //iteracja po sasiednich wezlach
-            if (color[*i] != -1) // czy kolor jest uzyty
-                used[color[*i]] = true; // zaznacz uzyty kolor
+
+        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {//iteracja po sasiednich wezlach
+            pos = i - adjacentNodes[node].begin();
+            if (color[pos] != -1) // czy kolor jest uzyty
+                used[color[pos]] = true; // zaznacz uzyty kolor
+        }
 
         //wybierz pierwszy dostepny kolor
         int cr;
@@ -104,9 +108,11 @@ int Graph::getBitTmp()
         uncolored--;
 
         // zresetuj wartosci dla kolejnej iteracji
-        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i)
-            if (color[*i] != -1)
-                used[color[*i]] = false;
+        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i){
+            pos = i - adjacentNodes[node].begin();
+            if (color[pos] != -1)
+                used[color[pos]] = false;
+        }
     }
 
     //wypisz wartosci
@@ -126,17 +132,18 @@ int Graph::getBitTmp()
 
 void Graph::LFRBitColoring()
 {
-   // list<int> *adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
+   std::vector<std::vector<int>> adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
    // list<int> *coloredAdjacentNodes = new list<int> [V]; //stworzenie listy przetrzymujacej juz pokolorowane sasiednie wezly w danej iteracji
 
     int V=Graph::V; //stworzenie lokalnej zmiennej przetrzymujacej ilosc wezlow dostepnych w danej iteracji
     int node; //zmienna przetrzymujaca numer wezla
     int pos;
     const boost::dynamic_bitset<> bZero(1, 0ul); //0 zapisane binarnie
+    vector<int>::iterator i;
 
     int uncolored=V;
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
+        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
 
 
@@ -162,12 +169,11 @@ void Graph::LFRBitColoring()
 
     //glowna petla programu
     while (uncolored>0) {
-        cout << "petla, uncolored: " << uncolored << endl;
+       // cout << "petla, uncolored: " << uncolored << endl;
         node = getBitTmp(); //wybranie wezla
-        cout << "petla, vector: " << node << endl;
+       // cout << "petla, vector: " << node << endl;
 
-        vector<int>::iterator i, j;
-        vector<int> it;
+
 
         //sprawdzenie czy pierwszy wezel w nowej iteracji ma mniej bitow kolorujacych niz minimalna ilosc dla iteracji
         if (colorBit[node].size()<bitSize[node]+1) {
@@ -297,19 +303,20 @@ void Graph::LFRBitColoring()
  * Algorytm kolorowania bitowego równomiernego
  */
 
-/*
+
 void Graph::EqualBitColoring()
 {
-    list<int> *adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
-    list<int> *coloredAdjacentNodes = new list<int> [V]; //stworzenie listy przetrzymujacej juz pokolorowane sasiednie wezly w danej iteracji
+    std::vector<std::vector<int>> adjacentNodes = Graph::adjacentNodes; //stworzenie lokalnej listy sasiednich wezlow
+
     int V=Graph::V;//stworzenie lokalnej zmiennej przetrzymujacej ilosc wezlow dostepnych w danej iteracji
     int node; //zmienna przetrzymujaca numer wezla
+    int pos;
     const boost::dynamic_bitset<> bZero(1, 0ul); //0 zapisane binarnie
 
     int uncolored=V;
 
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
+        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
 
 
@@ -336,64 +343,45 @@ void Graph::EqualBitColoring()
 
         //glowna petla programu
     while (uncolored>0) {
-        cout << "petla, uncolored: " << uncolored << endl;
+       // cout << "petla, uncolored: " << uncolored << endl;
         node = getBitTmp(); //wybranie wezla
-        vector<int> it;
 
-        cout << "petla, vector: " << node << endl;
-        list<int>::iterator i, j;
+
+        //cout << "petla, vector: " << node << endl;
+        vector<int>::iterator i;
 
           //sprawdzenie czy pierwszy wezel w nowej iteracji ma mniej bitow kolorujacych niz minimalna ilosc dla iteracji
         if (colorBit[node].size()<bitSize[node]+1) {
             colorBit[node].resize(bitSize[node]+1); //zwiekszenie ilosci bitow kolorujacych
 
-             //sprawdzenie czy sasiednie wezly sa pokolorowane
+            //sprawdzenie czy sasiednie wezly sa pokolorowane
             for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
-
-                if (colorBit[*i][bitSize[node]-1]!=colorBit[node][bitSize[node]-1])
-                    it.push_back(*i);//zaznacz je do usuniecia
-            }
-            for (int j = 0; j < it.size(); j++) {
-                adjacentNodes[node].remove(it[j]);//usun zaznaczone pokolorowane wezly z listy sasiadow
+                pos = i - adjacentNodes[node].begin();
+                if (marked[pos]==false){
+                    adjacentNodes[node][pos]=0;
+                    adjacentNodes[pos][node]=0; //zaznacz je do usuniecia
+                }
             }
 
             //wyczysc listy pokolorowanych sasiadow
-            coloredAdjacentNodes[node].clear();
-            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
-                coloredAdjacentNodes[*i].clear();
-            }
-
             continue;
+
         }
 
         //przypisz bit do pierwszego wybranego wezla ktorego lista pokolorowanych sasiadow jest pusta
-        if (coloredAdjacentNodes[node].empty()) {
-
-            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
-                coloredAdjacentNodes[*i].push_back(node);
+        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
+            if (used[0]==true && used[1]==true) {
+                break; //jesli oba bity zostaly uzyte przejdz dalej
             }
-        }
-
-        else {//dla kolejnych wezlow
-                //sprawdz czy zostal wolny bit
-            for (i = coloredAdjacentNodes[node].begin(); i != coloredAdjacentNodes[node].end(); ++i) {
-
-                if (used[0]==true && used[1]==true) {
-                    break; //jesli oba bity zostaly uzyte przejdz dalej
-                }
-                if (color[*i] != -1) { //jesli sasiad jest pokolorowany zaznacz uzyty bit
-                    if (colorBit[*i][bitSize[node]]==0) {
-                        used[0] = true;
-                    } else if (colorBit[*i][bitSize[node]]==1) {
-                        used[1] = true;
-                    }
+         //   cout << "i: " << i - adjacentNodes[node].begin() << endl;
+            pos = i - adjacentNodes[node].begin();
+            if (color[pos] != -1 && *i == 1) { //jesli sasiad jest pokolorowany zaznacz uzyty bit
+                if (colorBit[pos][bitSize[node]]==0) {
+                    used[0] = true;
+                } else if (colorBit[pos][bitSize[node]]==1) {
+                    used[1] = true;
                 }
             }
-
-            //dodaj wezel do listy pokolorwanych sasiadow
-            for (j = adjacentNodes[node].begin(); j != adjacentNodes[node].end(); ++j) {
-                coloredAdjacentNodes[*j].push_back(node);
-                }
         }
 
 
@@ -438,64 +426,66 @@ void Graph::EqualBitColoring()
             }
 
             bitSize[node]=bitSize[node]+1; //zwieksz ilosc bitow potrzebnych do pokolorowania wezla o 1
-            cout << "bitSize: " << bitSize[node]<<endl;
+            //cout << "bitSize: " << bitSize[node]<<endl;
             colorBit[node].resize( bitSize[node]+1);
         }
+
         if (marked[node]==true && bitSize[node]>0) { //jesli jest wezel zaznaczony dla dalszego kolorowania
 
-            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) { //sprawdz sasiednie wezly ktore zostaly juz pokolorowane tez tego nie wymagaja (maja ten same bit)
+            for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
+                pos = i - adjacentNodes[node].begin();
+                if (*i==1){//sprawdz sasiednie wezly ktore zostaly juz pokolorowane tez tego nie wymagaja (maja ten same bit)
                 if (bitSize[node] < 2) { //jesli jest to iteracja 0 albo 1 porownaj bity w tej iteracji
-                    if (bitSize[*i]>bitSize[node]-2 && color[*i] != -1 && colorBit[*i][bitSize[node]-1]==colorBit[node][bitSize[node]-1]) {
-                        if (bitSize[*i] < bitSize[node]) { //zwieksz liczbe bitow potrzebnych do kolorowania i zaznacz go do dalszego kolorowania
-                            bitSize[*i]=bitSize[node];
-                            marked[*i]=true;
+                    if (bitSize[pos]>bitSize[node]-2 && color[pos] != -1 && colorBit[pos][bitSize[node]-1]==colorBit[node][bitSize[node]-1]) {
+                        if (bitSize[pos] < bitSize[node]) { //zwieksz liczbe bitow potrzebnych do kolorowania i zaznacz go do dalszego kolorowania
+                            bitSize[pos]=bitSize[node];
+                            marked[pos]=true;
                             uncolored++;
-                            cout << "powiekszam wezel numer: " << *i<<endl;
+                         //   cout << "powiekszam wezel numer: " << *i<<endl;
                         }
-                    } else {
+                     }else {
 
-                        if (color[*i] != -1) { //jesli nie spelnia tych wymogow zaznacz go do usuniecia z listy sasiednich wezlow dla nastepnej iteracji
-                            it.push_back(*i);
-                            cout << "usuwam wezel numer: " << *i<<endl;
+                        if (color[pos] != -1) {
+                           adjacentNodes[node][pos]=0;
+                           adjacentNodes[pos][node]=0;
                         }
 
                     }
                 } else { //jesli jest to iteracja wyzsza niz 0 albo 1 porownaj bity z danej iteracji i z poprzedniej
-                    if (bitSize[*i]>bitSize[node]-2 && color[*i] != -1 && colorBit[*i][bitSize[node]-1]==colorBit[node][bitSize[node]-1] && colorBit[*i][bitSize[node]-2]==colorBit[node][bitSize[node]-2]) {
-                        if (bitSize[*i] < bitSize[node]) { //zwieksz liczbe bitow potrzebnych do kolorowania i zaznacz go
-                            bitSize[*i]=bitSize[node];
-                            marked[*i]=true;
+                    if (bitSize[pos]>bitSize[node]-2 && color[pos] != -1 && colorBit[pos][bitSize[node]-1]==colorBit[node][bitSize[node]-1] && colorBit[pos][bitSize[node]-2]==colorBit[node][bitSize[node]-2]) {
+                        if (bitSize[pos] < bitSize[node]) { //zwieksz liczbe bitow potrzebnych do kolorowania i zaznacz go
+                            bitSize[pos]=bitSize[node];
+                            marked[pos]=true;
                             uncolored++;
-                            cout << "powiekszam wezel numer: " << *i<<endl;
-                        } else {
+                       //     cout << "powiekszam wezel numer: " << *i<<endl;
+                        }
+                    }else {
 
-                            if (color[*i] != -1) { //jesli nie spelnia tych wymogow zaznacz go do usuniecia z listy sasiednich wezlow dla nastepnej iteracji
-                                it.push_back(*i);
-                                cout << "usuwam wezel numer: " << *i<<endl;
+//jesli nie spelnia tych wymogow zaznacz go do usuniecia z listy sasiednich wezlow dla nastepnej iteracji
+                            if (color[pos] != -1) {
+                               adjacentNodes[node][pos]=0;
+                               adjacentNodes[pos][node]=0;
                             }
 
                         }
                     }
+
                 }
 
 
             }
         }
 
-        for (int j = 0; j < it.size(); j++) { //usun zaznaczony wezel
-            adjacentNodes[node].remove(it[j]);
-        }
-
         used[0] = false;
         used[1] = false;
 
         //jesli liczba rund w iteracji jest rowna liczbie dostepnych do kolorowania wezlow, przejdz do nastepnej iteracji
-        cout << "rounds" << rounds << endl;
+       // cout << "rounds" << rounds << endl;
         rounds++;
         if (rounds == V && uncolored != 0) {
             V=uncolored;
             bitSizeMin++;
-            cout << "V" << V << endl;
+         //  cout << "V" << V << endl;
             rounds = 0;
         }
     }
@@ -520,4 +510,4 @@ void Graph::EqualBitColoring()
     bitSize.clear();
     marked.clear();
 }
-*/
+
