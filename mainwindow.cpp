@@ -41,9 +41,9 @@ void MainWindow::handleButton()
     QTextStream out(stdout);
     fl.chooseFile();
 
-   // for (std::list<std::string>::iterator it = myList.begin(); it!=myList.end();++it){
-   // std::cout << *it << endl;
-  //  }
+    // for (std::list<std::string>::iterator it = myList.begin(); it!=myList.end();++it){
+    // std::cout << *it << endl;
+    //  }
 
 }
 
@@ -51,13 +51,14 @@ void MainWindow::inputText()
 {
     bool ok;
     varU = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
-                                 tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
+                                tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
 
-  //  if (ok)
-      //  integerLabel->setText(tr("%1%").arg(varU));
+    //  if (ok)
+    //  integerLabel->setText(tr("%1%").arg(varU));
 }
 
-int MainWindow::getU(){
+int MainWindow::getU()
+{
     return varU;
 }
 
@@ -85,7 +86,7 @@ void MainWindow::createGraph()
     int output = fl.getOutput();
     int u = varU;
 
-    for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it){
+    for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it) {
 
         count = count + it->count();
 
@@ -97,27 +98,29 @@ void MainWindow::createGraph()
     g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
-             int x = it->size();    //Sprawdzenie ile linii jest w danym rozwinietym wezle.
+        int x = it->size();    //Sprawdzenie ile linii jest w danym rozwinietym wezle.
         for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
 
-             int key1 = key + x;
-             std::cout << key << " : "<< itt->toStdString()<<endl;
+            int key1 = key + x;
+            std::cout << key << " : "<< itt->toStdString()<<endl;
 
-             for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
-                 for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
+            for(QVector<QVector<QString>>::iterator ittt = extList.begin()+index; ittt != extList.end(); ++ittt) {
+                for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
 
-                      std::cout << key1 << " : " << itttt->toStdString()<<endl;
-                      if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)){
-                          g.addEdge(key,key1);
+                    std::cout << key1 << " : " << itttt->toStdString()<<endl;
+                    if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)) {
+                        g.addEdge(key,key1);
 
-                          cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
-                      }else {
+                        cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
+                    } else {
 
-                      } key1++;
-                 }
-             } key++; x--;
+                    } key1++;
+                }
+            }
+            key++;
+            x--;
         }
-    index++;
+        index++;
     }
     /*cout << "start LFRColoring" << endl;
     g.LFRColoring();
@@ -126,38 +129,43 @@ void MainWindow::createGraph()
     cout << "start EqualBitColoring" << endl;
     g.EqualBitColoring();*/
 
-    for (int i = 0; i < count; i++){
+    for (int i = 0; i < count; i++) {
         ui->comboBox->addItem(QString::number(i));
         ui->comboBox_2->addItem(QString::number(i));
     }
 }
 
-void MainWindow::LFRGraph() {
+void MainWindow::LFRGraph()
+{
     g.LFRColoring();
 }
 
-void MainWindow::LFRBitGraph() {
+void MainWindow::LFRBitGraph()
+{
     g.LFRBitColoring();
 }
 
-void MainWindow::EqualBitGraph() {
+void MainWindow::EqualBitGraph()
+{
     g.EqualBitColoring();
 }
 
-void MainWindow::addNode() {
+void MainWindow::addNode()
+{
     g.addNode();
     ui->comboBox->addItem(QString::number(g.getV()-1));
     ui->comboBox_2->addItem(QString::number(g.getV()-1));
 }
 
-void MainWindow::addEdge() {
+void MainWindow::addEdge()
+{
 
     int node1 = ui->comboBox->currentText().toInt();
     int node2 = ui->comboBox_2->currentText().toInt();
 
-    if (node1 > node2){
+    if (node1 > node2) {
         g.addEdge(node1, node2);
-    } else if (node2 > node1){
+    } else if (node2 > node1) {
         g.addEdge(node2, node1);
     } else {
         QMessageBox msgBox;

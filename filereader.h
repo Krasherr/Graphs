@@ -15,9 +15,18 @@ public:
     ~FileReader();
 
     void chooseFile();
-    QList<QString> getList() { return fileList; }
-    int getInput() { return input; }
-    int getOutput() { return output; }
+    QList<QString> getList()
+    {
+        return fileList;
+    }
+    int getInput()
+    {
+        return input;
+    }
+    int getOutput()
+    {
+        return output;
+    }
     QVector<QVector<QString>> createNodes(QList<QString> strList);
 
 

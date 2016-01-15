@@ -6,14 +6,20 @@
 #include "boost/dynamic_bitset.hpp"
 
 using namespace std;
-class Graph
-{
+class Graph {
 
 public:
     // Constructor and destructor
     Graph();
-    Graph(int V) { this->V = V; adj = new list<int>[V];}
-    ~Graph() { delete[] adj;}
+    Graph(int V)
+    {
+        this->V = V;
+        adj = new list<int>[V];
+    }
+    ~Graph()
+    {
+        delete[] adj;
+    }
 
     // function to add an edge to graph
     void addEdge(int v, int w);
@@ -24,9 +30,20 @@ public:
     void EqualBitColoring();
     int getTmp();
     int getBitTmp();
-    int getV() {return V;}
-    void setV(int count) { this->V = count; adj = new list<int>[V];}
-    void addNode() {this->V++; adj->resize(V);}
+    int getV()
+    {
+        return V;
+    }
+    void setV(int count)
+    {
+        this->V = count;
+        adj = new list<int>[V];
+    }
+    void addNode()
+    {
+        this->V++;
+        adj->resize(V);
+    }
 
 private:
 
