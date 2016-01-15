@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     //      return 0;
 
-     Graph g2(6);
+    /* Graph g2(6);
          g2.addEdge(0, 1);
          g2.addEdge(0, 3);
          g2.addEdge(0, 5);
@@ -52,16 +52,16 @@ int main(int argc, char *argv[])
          g2.addEdge(3, 5);
          g2.addEdge(4, 5);
          g2.printGraph();
-     //g2.EqualBitColoring();
+     g2.LFRBitColoring();*/
     std::clock_t start;
     double duration;
 
 
 
-    /*
 
 
-    int gSize = 1000;
+
+    int gSize = 4;
     Graph g(gSize);
     for (int i = 0; i<gSize; i++) {
         for (int j = i+1; j<gSize; j++) {
@@ -69,11 +69,12 @@ int main(int argc, char *argv[])
             g.addEdge(i,j);
         }
     }
+    g.printGraph();
     start = std::clock();
     g.LFRBitColoring();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-    std::cout<<"printf: "<< duration <<'\n';*/
+    std::cout<<"printf: "<< duration <<'\n';
 }
 
 /*int main(int, char*[])
