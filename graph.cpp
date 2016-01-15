@@ -16,9 +16,6 @@ void Graph::addEdge(int v, int w)
     adj[w].push_back(v);  // Note: the graph is undirected
 }
 
-// Assigns colors (starting from 0) to all vertices and prints
-// the assignment of colors
-
 int Graph::getTmp()
 {
     int max = -1;
@@ -51,9 +48,7 @@ int Graph::getBitTmp()
 void Graph::LFRColoring()
 {
     list<int> *adj = Graph::adj;
-    //vector<boost::dynamic_bitset<> > result(V,boost::dynamic_bitset<>(V/2));
     int uncolored=0;
-    //tmp = new vector <int> (V);
 
     // Assign the first color to first vertex
     for (int u = 0; u<V; u++) {
@@ -105,8 +100,6 @@ void Graph::LFRColoring()
     tmp.clear();
     color.clear();
 
-//	cout << result[0];
-//	cout << result[1];
 }
 
 void Graph::LFRBitColoring()
@@ -121,10 +114,6 @@ void Graph::LFRBitColoring()
         tmp.push_back(adj[u].size());
     }
 
-    //vector <int> result(V);
-    // Assign the first color to first vertex
-
-    //int zero = 0, one = 0;
     for (int u = 0; u < V; u++) {
         uncolored++;
         color.push_back(-1);
@@ -141,18 +130,11 @@ void Graph::LFRBitColoring()
         marked.push_back(true);
     }
     bitSizeMin=0;
-    cout << "po ustawieniu kolorow na -1" << endl;
-    //result[0] = b0;
-    // zero++;
-    // Initialize remaining V-1 vertices as unassigned
+
     int rounds = 0;
     while (uncolored>0) {
         cout << "petla, uncolored: " << uncolored << endl;
-        int u;
-        // vector<std::list<int>::iterator> it;
-        // Process all adjacent vertices and flag their colors
-        // as unavailable
-        u = getBitTmp();
+        int u = getBitTmp();
         cout << "petla, vector: " << u << endl;
         list<int>::iterator i, j;
         vector<int> it;
@@ -167,7 +149,7 @@ void Graph::LFRBitColoring()
                 adj[u].remove(it[j]);
                 adj2[u].remove(it[j]);
             }
-            //bitSizeMin=bitSize[u]+1;
+
             adj2->clear();
             continue;
 
@@ -181,7 +163,6 @@ void Graph::LFRBitColoring()
         } else {
 
             for (i = adj2[u].begin(); i != adj2[u].end(); ++i) {
-                // cout << "petla, vector: " << *i << endl;
                 if (used[0]==true && used[1]==true) {
                     break;
                 }
@@ -204,7 +185,6 @@ void Graph::LFRBitColoring()
         }
 
 
-        // Find the first available color
         int cr;
         for (cr = 0; cr <= 2; cr++)
             if (used[cr] == false)
@@ -213,17 +193,15 @@ void Graph::LFRBitColoring()
 
         cout << "kolor dostepny: " << cr << endl;
         if (cr == 0 || cr == 1) {
-            colorBit[u][bitSize[u]] = cr; // Assign the found color
+            colorBit[u][bitSize[u]] = cr;
             color[u]=1;
             marked[u]=false;
             uncolored--;
             if (cr == 1)
                 tmp_V--;
-            // bitSizeMin[u]=9999999;
         } else {
             colorBit[u][bitSize[u]] = 0;
             bitSize[u]=bitSize[u]+1;
-            //    bitSizeMin[u]=bitSize[u];
             cout << "bitSize: " << bitSize[u]<<endl;
             colorBit[u].resize( bitSize[u]+1);
 
@@ -237,7 +215,6 @@ void Graph::LFRBitColoring()
 
                     if (bitSize[*i] < bitSize[u]) {
                         bitSize[*i]=bitSize[u];
-                        //         bitSizeMin[*i]=bitSize[u];
                         marked[*i]=true;
                         uncolored++;
                         break;
@@ -260,18 +237,9 @@ void Graph::LFRBitColoring()
             adj2[u].remove(it[j]);
         }
 
-        // Reset the values back to false for the next iteration
-        // if (!adj[u].empty())
-        //    for (i = adj[u].begin(); i != adj[u].end(); ++i){
-        //          if (color[*i] != -1){
         used[0] = false;
         used[1] = false;
 
-        //       adj2[u].clear();
-
-
-        //         }
-        // }
         cout << "rounds" << rounds << endl;
         rounds++;
         if (rounds == V) {
@@ -282,7 +250,6 @@ void Graph::LFRBitColoring()
         }
     }
 
-    //cout << "wyjscie z petli" << endl;
     V=Graph::V;
     for (int u = 0; u < V; u++) {
         std::cout << "Vertex " << u << " --->  Size "
@@ -314,14 +281,12 @@ void Graph::EqualBitColoring()
         tmp.push_back(adj[u].size());
     }
 
-    //vector <int> result(V);
-    // Assign the first color to first vertex
 
     int zero = 0, one = 0;
     for (int u = 0; u < V; u++) {
         uncolored++;
         color.push_back(-1);
-        colorBit.push_back(bZero);  // no color is assigned to u
+        colorBit.push_back(bZero);
     }
 
 
@@ -331,7 +296,6 @@ void Graph::EqualBitColoring()
 
     for (int cr = 0; cr < V; cr++) {
         bitSize.push_back(0);
-        //bitSizeMin.push_back(0);
         marked.push_back(true);
     }
     bitSizeMin=0;
@@ -339,11 +303,9 @@ void Graph::EqualBitColoring()
 
     while (uncolored>0) {
         cout << "petla, uncolored: " << uncolored << endl;
-        int u;
+        int u = getBitTmp();
         vector<int> it;
-        // Process all adjacent vertices and flag their colors
-        // as unavailable
-        u = getBitTmp();
+
         cout << "petla, vector: " << u << endl;
         list<int>::iterator i, j;
 
@@ -356,9 +318,8 @@ void Graph::EqualBitColoring()
             }
             for (int j = 0; j < it.size(); j++) {
                 adj[u].remove(it[j]);
-                //     adj2[u].remove(it[j]);
             }
-            //bitSizeMin=bitSize[u]+1;
+
             adj2[u].clear();
             for (i = adj[u].begin(); i != adj[u].end(); ++i) {
                 adj2[*i].clear();
@@ -368,7 +329,7 @@ void Graph::EqualBitColoring()
         }
 
         if (adj2[u].empty()) {
-            // used[0]==true;
+
             for (i = adj[u].begin(); i != adj[u].end(); ++i) {
                 adj2[*i].push_back(u);
             }
@@ -377,7 +338,7 @@ void Graph::EqualBitColoring()
         else {
 
             for (i = adj2[u].begin(); i != adj2[u].end(); ++i) {
-                // cout << "petla, vector: " << *i << endl;
+
                 if (used[0]==true && used[1]==true) {
                     break;
                 }
@@ -400,14 +361,6 @@ void Graph::EqualBitColoring()
         }
 
 
-        // Find the first available color
-        int cr;
-        for (cr = 0; cr <= 2; cr++)
-            if (used[cr] == false)
-                break;
-
-
-        cout << "kolor dostepny: " << cr << endl;
         if (used[0] == false && used[1] == false) {
             if (zero<=one) {
                 colorBit[u][bitSize[u]] = 0; // Assign the found color
@@ -416,7 +369,6 @@ void Graph::EqualBitColoring()
                 uncolored--;
                 zero++;
                 tmp_V--;
-                //bitSizeMin[u]=99999999;
             } else {
                 colorBit[u][bitSize[u]] = 1; // Assign the found color
                 color[u]=1;
@@ -424,7 +376,6 @@ void Graph::EqualBitColoring()
                 uncolored--;
                 one++;
                 tmp_V--;
-                //     bitSizeMin[u]=99999999;
             }
         } else if (used[0] == false) {
             colorBit[u][bitSize[u]] = 0; // Assign the found color
@@ -433,7 +384,6 @@ void Graph::EqualBitColoring()
             uncolored--;
             zero++;
             tmp_V--;
-            //  bitSizeMin[u]=99999999;
         } else if (used[1] == false) {
             colorBit[u][bitSize[u]] = 1; // Assign the found color
             color[u]=1;
@@ -441,7 +391,6 @@ void Graph::EqualBitColoring()
             uncolored--;
             one++;
             tmp_V--;
-            //   bitSizeMin[u]=9999999;
         } else {
             if (zero<=one) {
                 colorBit[u][bitSize[u]] = 0;
@@ -452,8 +401,6 @@ void Graph::EqualBitColoring()
             }
 
             bitSize[u]=bitSize[u]+1;
-            //    bitSizeMin[u]=bitSize[u];
-
             cout << "bitSize: " << bitSize[u]<<endl;
             colorBit[u].resize( bitSize[u]+1);
         }
@@ -464,7 +411,6 @@ void Graph::EqualBitColoring()
                     if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1]) {
                         if (bitSize[*i] < bitSize[u]) {
                             bitSize[*i]=bitSize[u];
-                            //        bitSizeMin[*i]=bitSize[u];
                             marked[*i]=true;
                             uncolored++;
                             tmp_V++;
@@ -482,7 +428,6 @@ void Graph::EqualBitColoring()
                     if (bitSize[*i]>bitSize[u]-2 && color[*i] != -1 && colorBit[*i][bitSize[u]-1]==colorBit[u][bitSize[u]-1] && colorBit[*i][bitSize[u]-2]==colorBit[u][bitSize[u]-2]) {
                         if (bitSize[*i] < bitSize[u]) {
                             bitSize[*i]=bitSize[u];
-                            //        bitSizeMin[*i]=bitSize[u];
                             marked[*i]=true;
                             uncolored++;
                             tmp_V++;
@@ -521,7 +466,6 @@ void Graph::EqualBitColoring()
         }
     }
 
-    //cout << "wyjscie z petli" << endl;
     V=Graph::V;
     for (int u = 0; u < V; u++) {
         std::cout << "Vertex " << u << " --->  Size "
