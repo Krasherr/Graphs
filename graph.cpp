@@ -41,7 +41,23 @@ int Graph::getTmp()
  * Funkcja słuzaca do wybrania odpowiedniego wezla dla algorytmow binarnych
  */
 
-int Graph::getBitTmp()
+int Graph::getLFRBitTmp()
+{
+    int max = 9999;
+    int max_i;
+    for (int i =0; i < V; i++)
+        if ((color[i] == -1 || marked[i] == true) && bitSize[i] == bitSizeMin) { // jesli wezel jest niepokolorwany albo jest zaznaczony do dalszego kolorowania
+                                                                                 // oraz ilosc bitow potrzebnych do pokolorowania go jest mniejsza niz innych wezlow
+            if (tmp[i]<max) {
+                max = tmp[i];
+                max_i = i;
+            }
+        }
+
+    return max_i;
+}
+
+int Graph::getEqualBitTmp()
 {
     int max = -1;
     int max_i;
@@ -56,8 +72,6 @@ int Graph::getBitTmp()
 
     return max_i;
 }
-
-
 /*
  * Algorytm kolorowania klasycznego LF
  */
@@ -68,9 +82,15 @@ void Graph::LFRColoring()
     int uncolored=V; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
     int node; //wezel
     int pos;
+
     vector<int>::iterator i;
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //lista przechowujaca ilosc sasiadow kazdego z wezlow do pozniejszego wybrania
+        int size = 0;
+        for (int j=0; j<V; j++){
+            if (adjacentNodes[u][j]==1)
+                ++size;
+        }
+        tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
 
     //ustawienie wszystkich wezlow jako niepokolorowane
@@ -143,7 +163,12 @@ void Graph::LFRBitColoring()
 
     int uncolored=V;
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
+        int size = 0;
+        for (int j=0; j<V; j++){
+            if (adjacentNodes[u][j]==1)
+                ++size;
+        }
+        tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
 
 
@@ -169,9 +194,9 @@ void Graph::LFRBitColoring()
 
     //glowna petla programu
     while (uncolored>0) {
-       // cout << "petla, uncolored: " << uncolored << endl;
-        node = getBitTmp(); //wybranie wezla
-       // cout << "petla, vector: " << node << endl;
+        cout << "petla, uncolored: " << uncolored << endl;
+        node = getLFRBitTmp(); //wybranie wezla
+        cout << "petla, vector: " << node << endl;
 
 
 
@@ -316,7 +341,12 @@ void Graph::EqualBitColoring()
     int uncolored=V;
 
     for (int u = 0; u<V; u++) {
-        tmp.push_back(adjacentNodes[u].size()-edgeValue[u]); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
+        int size = 0;
+        for (int j=0; j<V; j++){
+            if (adjacentNodes[u][j]==1)
+                ++size;
+        }
+        tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
 
 
@@ -344,7 +374,7 @@ void Graph::EqualBitColoring()
         //glowna petla programu
     while (uncolored>0) {
        // cout << "petla, uncolored: " << uncolored << endl;
-        node = getBitTmp(); //wybranie wezla
+        node = getEqualBitTmp(); //wybranie wezla
 
 
         //cout << "petla, vector: " << node << endl;

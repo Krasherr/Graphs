@@ -24,8 +24,7 @@ int main(int argc, char *argv[])
      return a.exec();*/
 
 
-    /* Graph g2(4);
-     g2.addEdge(0, 1);
+     /*Graph g2(4);
      g2.addEdge(0, 2);
      g2.addEdge(0, 3);
      g2.addEdge(1, 2);
@@ -35,13 +34,13 @@ int main(int argc, char *argv[])
      cout << "\nColoring of Graph 2 \n";
      //g2.LFRColoring();
     // g2.LFRBitColoring();
-     g2.EqualBitColoring();*/
+     g2.LFRBitColoring();*/
     //  std::list<std::string> fileList;
     //  fileList = chooseFile(argc, argv);
 
     //      return 0;
 
-     Graph g2;
+  /*   Graph g2;
           g2.setV(6);
          g2.addEdge(0, 1);
          g2.addEdge(0, 3);
@@ -57,7 +56,7 @@ int main(int argc, char *argv[])
 
 
          cout << "po set" << endl;
-     //g2.printGraph();
+     //g2.printGraph();*/
     std::clock_t start;
     double duration;
 
@@ -66,7 +65,7 @@ int main(int argc, char *argv[])
 
 
 
-  /*  int gSize = 1000;
+    int gSize = 1000;
     Graph g(gSize);
     for (int i = 0; i<gSize; i++) {
         for (int j = i+1; j<gSize; j++) {
@@ -76,10 +75,10 @@ int main(int argc, char *argv[])
     }
     //g.printGraph();
     start = std::clock();
-    g.LFRBitColoring();
-    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;8/
+    g.EqualBitColoring();
+    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-    std::cout<<"printf: "<< duration <<'\n';*/
+    std::cout<<"printf: "<< duration <<'\n';
 }
 
 /*int main(int, char*[])

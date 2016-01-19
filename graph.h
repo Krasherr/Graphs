@@ -39,7 +39,8 @@ public:
     void LFRBitColoring2();
     void EqualBitColoring();
     int getTmp();
-    int getBitTmp();
+    int getLFRBitTmp();
+    int getEqualBitTmp();
     int getV()
     {
         return V;
