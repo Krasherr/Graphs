@@ -36,7 +36,7 @@ public:
     // Prints greedy coloring of the vertices
     void LFRColoring();
     void LFRBitColoring();
-    void LFRBitColoring2();
+    void LFRColoring2();
     void EqualBitColoring();
     void MaxCutRandomBitColoring();
     int getTmp();
@@ -68,7 +68,7 @@ private:
     vector<int> edgeValue;
     vector<int> bitSize;
     int bitSizeMin;
-    vector<bool> marked;
+    vector<int> marked;
     vector<boost::dynamic_bitset<> > colorBit;
 };
 

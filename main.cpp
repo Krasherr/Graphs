@@ -40,23 +40,23 @@ int main(int argc, char *argv[])
 
     //      return 0;
 
-  /*   Graph g2;
+     Graph g2;
           g2.setV(6);
          g2.addEdge(0, 1);
          g2.addEdge(0, 3);
          g2.addEdge(0, 5);
          g2.addEdge(1, 2);
-         g2.addEdge(1, 4);
          g2.addEdge(2, 3);
          g2.addEdge(2, 4);
+         g2.addEdge(3, 4);
          g2.addEdge(3, 5);
          g2.addEdge(4, 5);
          g2.printGraph();
-     g2.LFRColoring();
+     g2.LFRColoring2();
 
 
          cout << "po set" << endl;
-     //g2.printGraph();*/
+     //g2.printGraph();
     std::clock_t start;
     double duration;
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
 
 
-    int gSize = 4;
+   /* int gSize = 1000;
     Graph g(gSize);
     for (int i = 0; i<gSize; i++) {
         for (int j = i+1; j<gSize; j++) {
@@ -75,10 +75,10 @@ int main(int argc, char *argv[])
     }
     //g.printGraph();
     start = std::clock();
-    g.MaxCutRandomBitColoring();
+    g.LFRColoring2();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-    std::cout<<"printf: "<< duration <<'\n';
+    std::cout<<"printf: "<< duration <<'\n';*/
 }
 
 /*int main(int, char*[])
