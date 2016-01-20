@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
 
 
-    int gSize = 1000;
+    int gSize = 4;
     Graph g(gSize);
     for (int i = 0; i<gSize; i++) {
         for (int j = i+1; j<gSize; j++) {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     }
     //g.printGraph();
     start = std::clock();
-    g.EqualBitColoring();
+    g.MaxCutRandomBitColoring();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
     std::cout<<"printf: "<< duration <<'\n';

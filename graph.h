@@ -38,9 +38,11 @@ public:
     void LFRBitColoring();
     void LFRBitColoring2();
     void EqualBitColoring();
+    void MaxCutRandomBitColoring();
     int getTmp();
     int getLFRBitTmp();
     int getEqualBitTmp();
+    int getRandomNode();
     int getV()
     {
         return V;
