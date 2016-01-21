@@ -14,12 +14,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     filereader.cpp \
-    graph.cpp
+    graph.cpp \
+    maximumindependentset.cpp
 
 HEADERS  += \
     filereader.h \
     mainwindow.h \
-    graph.h
+    graph.h \
+    maximumindependentset.h
 
 INCLUDEPATH += C:\Qt\Qt5.5.1\boost\boost_1_59_0 \
                C:\Qt\5.5\boost\boost_1_59_0

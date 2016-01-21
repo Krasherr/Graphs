@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <iostream>
 #include "graph.h"
+#include <fstream>
+#include "maximumindependentset.h"
 //#include "filereader.h"
 
 
@@ -39,7 +41,7 @@ int main(int argc, char *argv[])
     //  fileList = chooseFile(argc, argv);
 
     //      return 0;
-
+/*
      Graph g2;
           g2.setV(6);
          g2.addEdge(0, 1);
@@ -52,7 +54,7 @@ int main(int argc, char *argv[])
          g2.addEdge(3, 5);
          g2.addEdge(4, 5);
          g2.printGraph();
-     g2.LFRColoring2();
+     g2.LFRColoring2();*/
 
 
          cout << "po set" << endl;
@@ -65,7 +67,7 @@ int main(int argc, char *argv[])
 
 
 
-   /* int gSize = 1000;
+    int gSize = 100;
     Graph g(gSize);
     for (int i = 0; i<gSize; i++) {
         for (int j = i+1; j<gSize; j++) {
@@ -75,10 +77,10 @@ int main(int argc, char *argv[])
     }
     //g.printGraph();
     start = std::clock();
-    g.LFRColoring2();
+    g.MaxCutRandomBitColoring();
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-    std::cout<<"printf: "<< duration <<'\n';*/
+    std::cout<<"printf: "<< duration <<'\n';
 }
 
 /*int main(int, char*[])
@@ -91,3 +93,51 @@ int main(int argc, char *argv[])
 
 }
 */
+
+
+using namespace std;
+
+
+ifstream infile ("graph.txt");
+ofstream outfile ("sets.txt");
+
+/*int main(int argc, char *argv[])
+{
+
+    MaximumIndependentSet maxSet;
+ //Read Graph
+ cout<<"Independent Set Algorithm."<<endl;
+
+ infile>>n;
+ vector< vector<int> > graph;
+ for(i=0; i<n; i++)
+ {
+  vector<int> row;
+  for(j=0; j<n; j++)
+  {
+   infile>>edge;
+   row.push_back(edge);
+  }
+  graph.push_back(row);
+ }
+ //Find Neighbors
+
+ Graph g2;
+      g2.setV(6);
+     g2.addEdge(0, 1);
+     g2.addEdge(0, 3);
+     g2.addEdge(0, 5);
+     g2.addEdge(1, 2);
+     g2.addEdge(2, 3);
+     g2.addEdge(2, 4);
+     g2.addEdge(4, 5);
+     g2.printGraph();
+ /*vector<int> cover = maxSet.process(g2.getAdj(), g2.getV(), g2.getV());
+for(int j=0; j<cover.size(); j++) if(cover[j]==0) cout<<j+1<<" ";
+
+ system("PAUSE");
+ return 0;
+     g2.MaxCutRandomBitColoring();
+}*/
+
+

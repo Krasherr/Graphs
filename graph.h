@@ -47,6 +47,10 @@ public:
     {
         return V;
     }
+    vector<vector <int>> getAdj(){
+        return adjacentNodes;
+    }
+
     void setV(const int &count)
     {
         this -> V = count;
