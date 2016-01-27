@@ -39,15 +39,15 @@ public:
     void LFRColoring2();
     void EqualBitColoring();
     void MaxCutRandomBitColoring();
-    int getTmp();
-    int getLFRBitTmp();
-    int getEqualBitTmp();
-    int getRandomNode();
+    int getTmp(const vector<int> &color, const vector<int> &tmp, const int &V);
+    int getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
+    int getEqualBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
+
     int getV()
     {
         return V;
     }
-    vector<vector <int>> getAdj(){
+    vector<vector <int>> getAdjacentNodes(){
         return adjacentNodes;
     }
 
@@ -67,13 +67,8 @@ private:
 
     int V;    // No. of vertices
     std::vector<std::vector<int>> adjacentNodes;    // A dynamic array of adjacency lists
-    vector<int> color;
-    vector<int> tmp;
     vector<int> edgeValue;
-    vector<int> bitSize;
-    int bitSizeMin;
-    vector<int> marked;
-    vector<boost::dynamic_bitset<> > colorBit;
+
 };
 
 #endif // GRAPH_H
