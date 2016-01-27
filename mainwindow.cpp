@@ -109,7 +109,7 @@ void MainWindow::createGraph()
 
                     std::cout << key1 << " : " << itttt->toStdString()<<endl;
                     if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)) {
-   //                     g.addEdge(key,key1);
+                        //                     g.addEdge(key,key1);
 
                         cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
                     } else {
@@ -142,12 +142,12 @@ void MainWindow::LFRGraph()
 
 void MainWindow::LFRBitGraph()
 {
-   // g.LFRBitColoring();
+    // g.LFRBitColoring();
 }
 
 void MainWindow::EqualBitGraph()
 {
-   // g.EqualBitColoring();
+    // g.EqualBitColoring();
 }
 
 void MainWindow::addNode()
@@ -166,7 +166,7 @@ void MainWindow::addEdge()
     if (node1 > node2) {
         //g.addEdge(node1, node2);
     } else if (node2 > node1) {
-      //  g.addEdge(node2, node1);
+        //  g.addEdge(node2, node1);
     } else {
         QMessageBox msgBox;
         msgBox.setText("Nie mozesz polaczyc tych samych wezlow!");

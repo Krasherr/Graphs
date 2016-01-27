@@ -16,7 +16,6 @@ public:
     Graph(const int& V) : V(V)
     {
         adjacentNodes.resize(V, std::vector<int>(V,0));
-        edgeValue.resize(V,1);
     }
     ~Graph()
     {
@@ -24,9 +23,10 @@ public:
 
     // function to add an edge to graph
     void addEdge(int v, int w);
-    void printGraph(){
-        for (int i=0; i<V; i++){
-            for (int j=0; j<V; j++){
+    void printGraph()
+    {
+        for (int i=0; i<adjacentNodes.size(); i++) {
+            for (int j=0; j<adjacentNodes[i].size(); j++) {
                 cout << adjacentNodes[i][j];
             }
             cout << endl;
@@ -38,7 +38,7 @@ public:
     void LFRBitColoring();
     void LFRColoring2();
     void EqualBitColoring();
-    void MaxCutRandomBitColoring();
+    void MaxCutBitColoring();
     int getTmp(const vector<int> &color, const vector<int> &tmp, const int &V);
     int getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
     int getEqualBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
@@ -47,20 +47,36 @@ public:
     {
         return V;
     }
-    vector<vector <int>> getAdjacentNodes(){
+    vector<vector <int>> getAdjacentNodes()
+    {
         return adjacentNodes;
     }
 
     void setV(const int &count)
     {
+        if (count > V)
+        for (int i = 0; i<V; i++){
+            for (int j = 0; j<count - V; j++){
+                adjacentNodes[i].push_back(0);
+            }
+        }
         this -> V = count;
+
         adjacentNodes.resize(count, std::vector<int>(count,0));
-        edgeValue.resize(V,1);
+        for (int i = 0; i<V; i++){
+             adjacentNodes[i].resize(count);
+        }
+
     }
+
     void addNode()
     {
+        for (int i = 0; i<V; i++){
+            adjacentNodes[i].push_back(0);
+        }
         this->V++;
-        adjacentNodes.resize(V, std::vector<int>(V,0));
+        vector<int> adjacentNodesTmp (V,0);
+        adjacentNodes.push_back(adjacentNodesTmp);
     }
 
 private:

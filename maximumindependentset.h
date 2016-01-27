@@ -3,8 +3,7 @@
 
 #include <vector>
 
-class MaximumIndependentSet
-{
+class MaximumIndependentSet {
 public:
     MaximumIndependentSet();
     bool removable(std::vector<int> neighbor, std::vector<int> cover);
