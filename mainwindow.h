@@ -30,6 +30,8 @@ private slots:
     void EqualBitGraph();
     void addNode();
     void addEdge();
+    void MISGraph();
+    void MISBitGraph();
 };
 
 #endif // MAINWINDOW_H

@@ -48,12 +48,12 @@ int Graph::getTmp(const vector<int> &color, const vector<int> &tmp, const int &V
 
 int Graph::getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin)
 {
-    int max = 9999;
+    int max = -1;
     int max_i;
     for (int i =0; i < V; i++)
         if (bitSize[i] == bitSizeMin && marked[i]==bitSizeMin) { // jesli wezel jest niepokolorwany albo jest zaznaczony do dalszego kolorowania
             // oraz ilosc bitow potrzebnych do pokolorowania go jest mniejsza niz innych wezlow
-            if (tmp[i]<max) {
+            if (tmp[i] > max) {
                 max = tmp[i];
                 max_i = i;
             }
@@ -144,6 +144,61 @@ void Graph::LFRColoring()
         std::cout << "Vertex " << u << " --->  Color "
                   << color[u] << std::endl;
 }
+
+void Graph::MISColoring()
+{
+    MaximumIndependentSet maxSet;
+    std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes(); //inicjalizacja lokalnej listy wezlow
+    int numberOfNodes = getV();
+    int uncolored=numberOfNodes; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
+    int node, pos, cr = 0, u;
+
+    //Tymczasowe tablice do przetrzymywania kolorow i wagi wezlow
+    vector<int> color, tmp, cover;
+
+    // Tymczasowa tablica sluzaca do ustalenia czy dany kolor
+    // zostal uzyty do pokolorowania sasiedniego wezla
+    vector<bool> used(numberOfNodes);
+
+    vector<int>::iterator i;
+
+    for (u = 0; u<numberOfNodes; u++) {
+        int size = 0;
+        for (int j=0; j<numberOfNodes; j++) {
+            if (adjacentNodes[u][j]==1)
+                ++size;
+        }
+        tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
+        color.push_back(-1);
+        used[u] = false;
+    }
+
+    // glowna petla algorytmu
+    while (uncolored>0) {
+
+                cover = maxSet.process(adjacentNodes, getV(), getV()); //wybor wezla
+                for(node=0; node<cover.size(); node++) {
+
+                    if(cover[node]==0 && color[node] == -1) {
+                        color[node] = cr;
+                        uncolored--;
+                        for (int u=0; u<adjacentNodes.size(); u++)
+                        {
+                            adjacentNodes[node][u]=0;
+                            adjacentNodes[u][node]=0;
+                        }
+                    }
+                }
+                cr++;
+    }
+
+
+    //wypisz wartosci
+    for (u = 0; u < numberOfNodes; u++)
+        std::cout << "Vertex " << u << " --->  Color "
+                  << color[u] << std::endl;
+}
+
 
 void Graph::LFRColoring2()
 {
@@ -490,7 +545,7 @@ void Graph::EqualBitColoring()
 
 }
 
-void Graph::MaxCutBitColoring()
+void Graph::MISBitColoring()
 {
     std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes(); //stworzenie lokalnej listy sasiednich wezlow
     MaximumIndependentSet maxSet;

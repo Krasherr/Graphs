@@ -38,7 +38,8 @@ public:
     void LFRBitColoring();
     void LFRColoring2();
     void EqualBitColoring();
-    void MaxCutBitColoring();
+    void MISBitColoring();
+    void MISColoring();
     int getTmp(const vector<int> &color, const vector<int> &tmp, const int &V);
     int getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
     int getEqualBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);

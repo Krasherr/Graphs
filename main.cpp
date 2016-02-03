@@ -18,15 +18,15 @@
 int main(int argc, char *argv[])
 {
 
-    /*     QApplication a(argc, argv);
+         QApplication a(argc, argv);
          QTextStream out(stdout);
          MainWindow w;
          w.show();
 
          return a.exec();
-    }*/
+    }
 
-    Graph g2;
+  /* Graph g2;
     g2.setV(4);
     g2.printGraph();
     g2.addEdge(0, 2);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     g2.addEdge(2, 3);
     g2.printGraph();
     cout << "\nColoring of Graph 2 \n";
-   // g2.MaxCutRandomBitColoring();
+    g2.MISColoring();
 }
 // g2.LFRBitColoring();
 // g2.LFRBitColoring();*/
@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
 //  fileList = chooseFile(argc, argv);
 
 //      return 0;
-/*
-     Graph g2;
+
+     /*Graph g2;
           g2.setV(6);
          g2.addEdge(0, 1);
          g2.addEdge(0, 3);
@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
          g2.addEdge(3, 5);
          g2.addEdge(4, 5);
          g2.printGraph();
-     g2.LFRColoring2();*/
+     g2.MISColoring();
 
-
+}*/
 /*      cout << "po set" << endl;
   //g2.printGraph();
  std::clock_t start;

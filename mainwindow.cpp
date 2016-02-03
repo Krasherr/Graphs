@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_7, SIGNAL(clicked()),this, SLOT(addNode()));
     ui->pushButton_8->setText("Dodaj krawedz");
     connect(ui->pushButton_8, SIGNAL(clicked()),this, SLOT(addEdge()));
+    ui->pushButton_9->setText("Kolorowanie grafu MIS");
+    connect(ui->pushButton_9, SIGNAL(clicked()),this, SLOT(MISGraph()));
+    ui->pushButton_10->setText("Kolorowanie grafu MIS Bit");
+    connect(ui->pushButton_10, SIGNAL(clicked()),this, SLOT(MISBitGraph()));
 }
 
 MainWindow::~MainWindow()
@@ -52,9 +56,6 @@ void MainWindow::inputText()
     bool ok;
     varU = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
                                 tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
-
-    //  if (ok)
-    //  integerLabel->setText(tr("%1%").arg(varU));
 }
 
 int MainWindow::getU()
@@ -64,20 +65,7 @@ int MainWindow::getU()
 
 void MainWindow::createGraph()
 {
-    /*Graph g1(4);
-    g1.addEdge(0, 1);
-    g1.addEdge(0, 2);
-    g1.addEdge(1, 2);
-    g1.addEdge(1, 3);
-    g1.addEdge(2, 3);
 
-
-    cout << "Coloring of Graph 1 \n";
-    g1.greedyColoring();*/
-
-    /*Graph gr(varU);
-
-    gr.createGraph(fl.getList(), varU);*/
 
     QVector<QVector<QString>> extList = fl.createNodes(fl.getList());
     int index = 1;
@@ -91,10 +79,7 @@ void MainWindow::createGraph()
         count = count + it->count();
 
     }
-    std::cout << "varU: " << varU << endl;
-    std::cout << "input: " << input << endl;
-    std::cout << "output: " << output << endl;
-    std::cout << "node count: " << count << endl;
+
     g.setV(count);
 
     for(QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end()-1; ++it) {
@@ -109,7 +94,7 @@ void MainWindow::createGraph()
 
                     std::cout << key1 << " : " << itttt->toStdString()<<endl;
                     if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)) {
-                        //                     g.addEdge(key,key1);
+                                             g.addEdge(key,key1);
 
                         cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
                     } else {
@@ -122,12 +107,7 @@ void MainWindow::createGraph()
         }
         index++;
     }
-    /*cout << "start LFRColoring" << endl;
-    g.LFRColoring();
-    cout << "start LFRBitColoring" << endl;
-    g.LFRBitColoring();
-    cout << "start EqualBitColoring" << endl;
-    g.EqualBitColoring();*/
+
 
     for (int i = 0; i < count; i++) {
         ui->comboBox->addItem(QString::number(i));
@@ -137,22 +117,32 @@ void MainWindow::createGraph()
 
 void MainWindow::LFRGraph()
 {
-    //g.LFRColoring();
+    g.LFRColoring();
 }
 
 void MainWindow::LFRBitGraph()
 {
-    // g.LFRBitColoring();
+    g.LFRBitColoring();
 }
 
 void MainWindow::EqualBitGraph()
 {
-    // g.EqualBitColoring();
+    g.EqualBitColoring();
+}
+
+void MainWindow::MISGraph()
+{
+    g.MISColoring();
+}
+
+void MainWindow::MISBitGraph()
+{
+    g.MISBitColoring();
 }
 
 void MainWindow::addNode()
 {
-    //g.addNode();
+    g.addNode();
     ui->comboBox->addItem(QString::number(g.getV()-1));
     ui->comboBox_2->addItem(QString::number(g.getV()-1));
 }
@@ -164,9 +154,9 @@ void MainWindow::addEdge()
     int node2 = ui->comboBox_2->currentText().toInt();
 
     if (node1 > node2) {
-        //g.addEdge(node1, node2);
+        g.addEdge(node1, node2);
     } else if (node2 > node1) {
-        //  g.addEdge(node2, node1);
+        g.addEdge(node2, node1);
     } else {
         QMessageBox msgBox;
         msgBox.setText("Nie mozesz polaczyc tych samych wezlow!");
