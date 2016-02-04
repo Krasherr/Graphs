@@ -684,9 +684,7 @@ void Graph::graphToFile(const vector<boost::dynamic_bitset<>> &colorBit,const ve
 
     int V = getV();
     for (int u = 0; u < V; u++) {
-           outfile << "Vertex " << u << " --->  Size "
-                     << colorBit[u].size() << std::endl;
-           for (int i = 0; i<=bitSizeMin; i++)
+           for (int i = bitSizeMin; i>=0; i--)
                if(i>bitSize[u]) {
                    outfile << "-";
                } else

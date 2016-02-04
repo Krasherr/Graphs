@@ -98,14 +98,13 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
             if(graph[i][j]==1) neighbor.push_back(j);
         neighbors.push_back(neighbor);
     }
-    cout<<"Graph has n = "<<n<<" vertices."<<endl;
+
     //Read maximum size of Independent Set wanted
-    cout<<"Find an Independent Set of size at least k = ";
+
     K=z;
     k=n-K;
     //Find Independent Sets
     bool found=false;
-    cout<<"Finding Independent Sets..."<<endl;
     min=n+1;
     vector<vector<int> > covers;
     vector<int> allcover;
@@ -115,7 +114,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
     for(i=0; i<allcover.size(); i++) {
         if(found) break;
         counter++;
-        cout<<counter<<". ";
         cover=allcover;
         cover[i]=0;
         cover=procedure_1(neighbors,cover);
@@ -123,7 +121,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
         if(s<min) min=s;
         if(s<=k) {
 
-            cout<<"Independent Set Size: "<<n-s<<endl;
             covers.push_back(cover);
             found=true;
             break;
@@ -133,7 +130,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
         s=cover_size(cover);
         if(s<min) min=s;
 
-        cout<<"Independent Set Size: "<<n-s<<endl;
         covers.push_back(cover);
         if(s<=k) {
             found=true;
@@ -146,7 +142,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
         for(q=p+1; q<covers.size(); q++) {
             if(found) break;
             counter++;
-            cout<<counter<<". ";
 
             cover=allcover;
             for(r=0; r<cover.size(); r++)
@@ -155,7 +150,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
             s=cover_size(cover);
             if(s<min) min=s;
             if(s<=k) {
-                cout<<"Independent Set Size: "<<n-s<<endl;
                 found=true;
                 break;
             }
@@ -163,8 +157,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
                 cover=procedure_2(neighbors,cover,j);
             s=cover_size(cover);
             if(s<min) min=s;
-            outfile<<endl;
-            cout<<"Independent Set Size: "<<n-s<<endl;
             if(s<=k) {
                 found=true;
                 break;
@@ -172,14 +164,14 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
         }
     }
     if(found) {
-        cout<<"Found Independent Set of size at least "<<K<<"."<<endl;
+        //cout<<"Found Independent Set of size at least "<<K<<"."<<endl;
         //for(j=0; j<cover.size(); j++) if(cover[j]==0) cout<<j+1<<" ";
         return cover;
     } else {
-        cout<<"Could not find Independent Set of size at least "<<K<<"."<<endl
-            <<"Maximum Independent Set size found is "<<n-min<<"."<<endl;
+        //cout<<"Could not find Independent Set of size at least "<<K<<"."<<endl
+        //    <<"Maximum Independent Set size found is "<<n-min<<"."<<endl;
 
-        cout<<"See sets.txt for results."<<endl;
+        //cout<<"See sets.txt for results."<<endl;
         process(graph, V, n-min);
     }
 }
