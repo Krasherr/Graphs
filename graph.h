@@ -40,6 +40,8 @@ public:
     void EqualBitColoring();
     void MISBitColoring();
     void MISColoring();
+    void graphToFile(const vector<boost::dynamic_bitset<>> &colorBit,const vector<int> &bitSize,  const int &bitSizeMin);
+    void graphToFile(const vector<int> &color);
     int getTmp(const vector<int> &color, const vector<int> &tmp, const int &V);
     int getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
     int getEqualBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin);
@@ -79,6 +81,7 @@ public:
         vector<int> adjacentNodesTmp (V,0);
         adjacentNodes.push_back(adjacentNodesTmp);
     }
+
 
 private:
 
