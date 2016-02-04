@@ -116,16 +116,13 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
         if(found) break;
         counter++;
         cout<<counter<<". ";
-        outfile<<counter<<". ";
         cover=allcover;
         cover[i]=0;
         cover=procedure_1(neighbors,cover);
         s=cover_size(cover);
         if(s<min) min=s;
         if(s<=k) {
-            outfile<<"Independent Set ("<<n-s<<"): ";
-            for(j=0; j<cover.size(); j++) if(cover[j]==0) outfile<<j+1<<" ";
-            outfile<<endl;
+
             cout<<"Independent Set Size: "<<n-s<<endl;
             covers.push_back(cover);
             found=true;
@@ -135,9 +132,7 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
             cover=procedure_2(neighbors,cover,j);
         s=cover_size(cover);
         if(s<min) min=s;
-        outfile<<"Independent Set ("<<n-s<<"): ";
-        for(j=0; j<cover.size(); j++) if(cover[j]==0) outfile<<j+1<<" ";
-        outfile<<endl;
+
         cout<<"Independent Set Size: "<<n-s<<endl;
         covers.push_back(cover);
         if(s<=k) {
@@ -152,7 +147,7 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
             if(found) break;
             counter++;
             cout<<counter<<". ";
-            outfile<<counter<<". ";
+
             cover=allcover;
             for(r=0; r<cover.size(); r++)
                 if(covers[p][r]==0 && covers[q][r]==0) cover[r]=0;
@@ -160,9 +155,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
             s=cover_size(cover);
             if(s<min) min=s;
             if(s<=k) {
-                outfile<<"Independent Set ("<<n-s<<"): ";
-                for(j=0; j<cover.size(); j++) if(cover[j]==0) outfile<<j+1<<" ";
-                outfile<<endl;
                 cout<<"Independent Set Size: "<<n-s<<endl;
                 found=true;
                 break;
@@ -171,8 +163,6 @@ vector<int> MaximumIndependentSet::process(std::vector<vector <int> > graph, int
                 cover=procedure_2(neighbors,cover,j);
             s=cover_size(cover);
             if(s<min) min=s;
-            outfile<<"Independent Set ("<<n-s<<"): ";
-            for(j=0; j<cover.size(); j++) if(cover[j]==0) outfile<<j+1<<" ";
             outfile<<endl;
             cout<<"Independent Set Size: "<<n-s<<endl;
             if(s<=k) {

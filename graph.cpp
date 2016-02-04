@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <QApplication>
 #include <QDebug>
 #include <bitset>
@@ -140,9 +141,10 @@ void Graph::LFRColoring()
     }
 
     //wypisz wartosci
-    for (u = 0; u < numberOfNodes; u++)
+    /*for (u = 0; u < numberOfNodes; u++)
         std::cout << "Vertex " << u << " --->  Color "
-                  << color[u] << std::endl;
+                  << color[u] << std::endl;*/
+    graphToFile(color);
 }
 
 void Graph::LFRColoring2()
@@ -211,9 +213,10 @@ void Graph::LFRColoring2()
     }
 
     //wypisz wartosci
-    for (u = 0; u < numberOfNodes; u++)
+  /*  for (u = 0; u < numberOfNodes; u++)
         std::cout << "Vertex " << u << " --->  Color "
-                  << color[u] << std::endl;
+                  << color[u] << std::endl;*/
+    graphToFile(color);
 
 }
 
@@ -322,7 +325,7 @@ void Graph::LFRBitColoring()
             rounds = 0;
         }
     }
-
+    graphToFile(colorBit, bitSize, bitSizeMin);
     //wypisz wezly - kolory
     /*V=Graph::V;
     for (u = 0; u < V; u++) {
@@ -473,7 +476,7 @@ void Graph::EqualBitColoring()
         }
     }
 
-
+        graphToFile(colorBit, bitSize, bitSizeMin);
     //wypisz wezly - kolory
     /* V=Graph::V;
      for (int u = 0; u < V; u++) {
@@ -522,7 +525,7 @@ void Graph::MaxCutBitColoring()
     //glowna petla programu
     while (uncolored>0) {
 
-        cover = maxSet.process(adjacentNodes, V, 1);
+        cover = maxSet.process(adjacentNodes, getV(), getV());
         for(node=0; node<cover.size(); node++) {
             if(cover[node]==0) {
                 cout<<node<<" ";
@@ -606,7 +609,7 @@ void Graph::MaxCutBitColoring()
 
     }
 
-
+    graphToFile(colorBit, bitSize, bitSizeMin);
     //wypisz wezly - kolory
     /*  V=getV();
       for (int u = 0; u < V; u++) {
@@ -620,4 +623,30 @@ void Graph::MaxCutBitColoring()
                   std::cout << "Vertex " << u << " --->  Color "
                             << colorBit[u][i] << std::endl;
       }*/
+}
+
+void Graph::graphToFile(const vector<boost::dynamic_bitset<>> &colorBit,const vector<int> &bitSize,  const int &bitSizeMin) {
+    ofstream outfile ("graph_coloring.txt");
+
+    int V = getV();
+    for (int u = 0; u < V; u++) {
+           outfile << "Vertex " << u << " --->  Size "
+                     << colorBit[u].size() << std::endl;
+           for (int i = 0; i<=bitSizeMin; i++)
+               if(i>bitSize[u]) {
+                   outfile << "-";
+               } else
+                   outfile << colorBit[u][i];
+
+           outfile << std::endl;
+   }
+}
+
+void Graph::graphToFile(const vector<int> &color) {
+    ofstream outfile ("graph_coloring.txt");
+
+    int numberOfNodes = getV();
+    for (int u = 0; u < numberOfNodes; u++)
+        outfile << "Vertex " << u << " --->  Color "
+                  << color[u] << std::endl;
 }
