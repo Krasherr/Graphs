@@ -137,16 +137,17 @@ void Graph::GreedyColoring()
                 used[color[pos]] = false;
         }
        }
-        cout << "wynik: " << endl;
+       /* cout << "wynik: " << endl;
         for (u = 0; u < numberOfNodes; u++)
                 std::cout << "Vertex " << u << " --->  Color "
-                          << color[u] << std::endl;
+                          << color[u] << std::endl;*/
         for (u = 0; u<numberOfNodes; u++) {
             color[u]=-1;
             used[u] = false;
         }
     }
 
+    cout << allCombinations.size() << endl;
     //wypisz wartosci
     /*for (u = 0; u < numberOfNodes; u++)
         std::cout << "Vertex " << u << " --->  Color "
