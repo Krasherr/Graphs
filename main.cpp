@@ -83,21 +83,17 @@ int main(int argc, char *argv[])
 
 //      return 0;
 
-     /*Graph g2;
-          g2.setV(6);
+     Graph g2;
+          g2.setV(4);
          g2.addEdge(0, 1);
          g2.addEdge(0, 3);
-         g2.addEdge(0, 5);
+         g2.addEdge(0, 2);
          g2.addEdge(1, 2);
          g2.addEdge(2, 3);
-         g2.addEdge(2, 4);
-         g2.addEdge(3, 4);
-         g2.addEdge(3, 5);
-         g2.addEdge(4, 5);
          g2.printGraph();
-     g2.MISColoring();
+     g2.GreedyColoring();
 
-}*/
+}
 /*      cout << "po set" << endl;
   //g2.printGraph();
 
@@ -106,7 +102,7 @@ int main(int argc, char *argv[])
 
 
 */
-    std::clock_t start;
+ /*   std::clock_t start;
     double duration;
  int gSize = 400;
  Graph g(gSize);

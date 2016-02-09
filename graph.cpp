@@ -79,6 +79,81 @@ int Graph::getEqualBitTmp(const vector<int> &tmp, const int &V, const vector<int
     return max_i;
 }
 
+void Graph::GreedyColoring()
+{
+    std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes();
+    std::vector<std::vector<int>> allCombinations ; //inicjalizacja lokalnej listy wezlow
+    int numberOfNodes = getV();
+    int uncolored=numberOfNodes; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
+    int node, pos, cr, u;
+
+    //Tymczasowe tablice do przetrzymywania kolorow i wagi wezlow
+    vector<int> color, tmp;
+
+    // Tymczasowa tablica sluzaca do ustalenia czy dany kolor
+    // zostal uzyty do pokolorowania sasiedniego wezla
+    vector<bool> used(numberOfNodes);
+
+    vector<int>::iterator i;
+
+    std::vector<int> nodeSort;
+
+    for (u = 0; u<numberOfNodes; u++) {
+        color.push_back(-1);
+        used[u] = false;
+    }
+
+    for (u = 0; u<numberOfNodes; u++){
+        nodeSort.push_back(u);
+    }
+
+    do {
+        allCombinations.push_back(nodeSort);
+    } while(std::next_permutation(nodeSort.begin(), nodeSort.end()));
+    cout << "start petla" << endl;
+    // glowna petla algorytmu
+    for (int k = 0; k<allCombinations.size(); k++) {
+        for (int j = 0; j<allCombinations[k].size(); j++){
+
+        node = allCombinations[k][j]; //wybor wezla
+        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {//iteracja po sasiednich wezlach
+            pos = i - adjacentNodes[node].begin();
+            if (color[pos] != -1 && *i==1) // czy kolor jest uzyty
+                used[color[pos]] = true; // zaznacz uzyty kolor
+        }
+        //wybierz pierwszy dostepny kolor
+
+        for (cr = 0; cr < numberOfNodes; cr++)
+            if (used[cr] == false)
+                break;
+
+        //przypisz pierwszy wolny kolor do wezla
+        color[node] = cr;
+
+        // zresetuj wartosci dla kolejnej iteracji
+        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
+            pos = i - adjacentNodes[node].begin();
+            if (color[pos] != -1 && *i==1)
+                used[color[pos]] = false;
+        }
+       }
+        cout << "wynik: " << endl;
+        for (u = 0; u < numberOfNodes; u++)
+                std::cout << "Vertex " << u << " --->  Color "
+                          << color[u] << std::endl;
+        for (u = 0; u<numberOfNodes; u++) {
+            color[u]=-1;
+            used[u] = false;
+        }
+    }
+
+    //wypisz wartosci
+    /*for (u = 0; u < numberOfNodes; u++)
+        std::cout << "Vertex " << u << " --->  Color "
+                  << color[u] << std::endl;*/
+ //   graphToFile(color);
+}
+
 
 /*
  * Algorytm kolorowania klasycznego LF

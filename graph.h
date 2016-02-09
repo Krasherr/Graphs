@@ -40,6 +40,7 @@ public:
     void EqualBitColoring();
     void MISBitColoring();
     void MISColoring();
+    void GreedyColoring();
     void graphToFile(const vector<boost::dynamic_bitset<>> &colorBit,const vector<int> &bitSize,  const int &bitSizeMin);
     void graphToFile(const vector<int> &color);
     int getTmp(const vector<int> &color, const vector<int> &tmp, const int &V);
