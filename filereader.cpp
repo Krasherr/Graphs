@@ -1,4 +1,5 @@
 #include "filereader.h"
+#include <exception>
 
 FileReader::FileReader()
 {
@@ -23,11 +24,11 @@ void FileReader::chooseFile()
             QTextStream in(&inputFile);
             while (!in.atEnd()) {
                 fileLocalList.push_back(in.readLine());
-                //        std::cout << fileList.back() << endl;
+
             }
 
         }
-        //   std::cout << fileList.at(1).toStdString() << endl;
+
         inputFile.close();
         fileList=fileLocalList;
     }
@@ -37,6 +38,8 @@ void FileReader::chooseFile()
 QVector<QVector<QString>> FileReader::createNodes(QList<QString> strList)
 {
     QVector<QVector<QString>> extList;
+    try
+    {
 
     for(int it = 0; it<strList.size(); it++) {
         QVector<QString> v;
@@ -74,6 +77,10 @@ QVector<QVector<QString>> FileReader::createNodes(QList<QString> strList)
             extList.push_back(v);
         }
 
+    }
+    } catch (std::exception& e)
+    {
+      std::cout << "Standard exception: " << e.what() << endl;
     }
     return extList;
 }

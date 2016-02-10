@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <bitset>
+#include <exception>
 #include "boost/dynamic_bitset.hpp"
 #include "maximumindependentset.h"
 
@@ -112,6 +113,7 @@ void Graph::GreedyColoring()
     } while(std::next_permutation(nodeSort.begin(), nodeSort.end()));
     cout << "start petla" << endl;
     // glowna petla algorytmu
+    try {
     for (int k = 0; k<allCombinations.size(); k++) {
         for (int j = 0; j<allCombinations[k].size(); j++){
 
@@ -145,6 +147,10 @@ void Graph::GreedyColoring()
             color[u]=-1;
             used[u] = false;
         }
+    }
+    } catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
     }
 
     cout << allCombinations.size() << endl;
@@ -186,7 +192,7 @@ void Graph::LFRColoring()
         color.push_back(-1);
         used[u] = false;
     }
-
+    try {
     // glowna petla algorytmu
     while (uncolored>0) {
 
@@ -215,7 +221,10 @@ void Graph::LFRColoring()
                 used[color[pos]] = false;
         }
     }
-
+    }     catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
+    }
     //wypisz wartosci
     /*for (u = 0; u < numberOfNodes; u++)
         std::cout << "Vertex " << u << " --->  Color "
@@ -250,7 +259,7 @@ void Graph::MISColoring()
         color.push_back(-1);
         used[u] = false;
     }
-
+    try {
     // glowna petla algorytmu
     while (uncolored>0) {
 
@@ -268,6 +277,10 @@ void Graph::MISColoring()
                     }
                 }
                 cr++;
+    }
+    }    catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
     }
 
 
@@ -378,7 +391,7 @@ void Graph::LFRBitColoring()
         }
         tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
     }
-
+    try {
     //glowna petla programu
     while (uncolored>0) {
 
@@ -455,6 +468,10 @@ void Graph::LFRBitColoring()
             rounds = 0;
         }
     }
+    }    catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
+    }
     graphToFile(colorBit, bitSize, bitSizeMin);
     //wypisz wezly - kolory
     /*V=Graph::V;
@@ -506,6 +523,7 @@ void Graph::EqualBitColoring()
     //  vector<int> marked(V);
     for (cr = 0; cr < 2; cr++)
         used[cr] = false;
+    try {
     //glowna petla programu
     while (uncolored>0) {
         // cout << "petla, uncolored: " << uncolored << endl;
@@ -605,6 +623,11 @@ void Graph::EqualBitColoring()
             rounds = 0;
         }
     }
+    }     catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
+    }
+
 
         graphToFile(colorBit, bitSize, bitSizeMin);
     //wypisz wezly - kolory
@@ -651,7 +674,7 @@ void Graph::MISBitColoring()
     for (cr = 0; cr < 2; cr++)
         used[cr] = false;
     vector<int> cover;
-
+    try {
     //glowna petla programu
     while (uncolored>0) {
 
@@ -737,6 +760,10 @@ void Graph::MISBitColoring()
         bitSizeMin++;
 
 
+    }
+    }    catch (exception& e)
+    {
+      cout << "Standard exception: " << e.what() << endl;
     }
 
     graphToFile(colorBit, bitSize, bitSizeMin);

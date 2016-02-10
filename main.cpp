@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
  }
  //g.printGraph();
  start = std::clock();
- g.GreedyColoring();
+ g.EqualBitColoring();
  duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
  std::cout<<"printf: "<< duration <<'\n';
