@@ -16,8 +16,8 @@
 
 
 int main(int argc, char *argv[])
-{/*
-
+{
+/*
          QApplication a(argc, argv);
          QTextStream out(stdout);
          MainWindow w;
@@ -26,45 +26,27 @@ int main(int argc, char *argv[])
          return a.exec();
     }*/
 
-  /*Graph g2;
-    g2.setV(24);
+  Graph g2;
+    g2.setV(8);
     g2.printGraph();
     g2.addEdge(0, 1);
-    g2.addEdge(0, 11);
-    g2.addEdge(0, 12);
+    g2.addEdge(0, 2);
+    g2.addEdge(0, 3);
+    g2.addEdge(0, 4);
+    g2.addEdge(0, 5);
+    g2.addEdge(0, 6);
+    g2.addEdge(0, 7);
     g2.addEdge(1, 2);
-    g2.addEdge(1, 13);
-    g2.addEdge(2, 3);
-    g2.addEdge(2, 14);
-    g2.addEdge(3, 4);
-    g2.addEdge(3, 15);
-    g2.addEdge(4, 5);
-    g2.addEdge(4, 16);
-    g2.addEdge(5, 6);
-    g2.addEdge(5, 17);
+    g2.addEdge(1, 4);
+    g2.addEdge(1, 5);
+    g2.addEdge(1, 7);
+    g2.addEdge(2, 6);
+    g2.addEdge(3, 5);
+    g2.addEdge(3, 6);
+    g2.addEdge(4, 6);
+    g2.addEdge(4, 7);
+    g2.addEdge(5, 7);
     g2.addEdge(6, 7);
-    g2.addEdge(6, 18);
-    g2.addEdge(7, 8);
-    g2.addEdge(7, 19);
-    g2.addEdge(8, 9);
-    g2.addEdge(8, 20);
-    g2.addEdge(9, 10);
-    g2.addEdge(9, 21);
-    g2.addEdge(10, 11);
-    g2.addEdge(10, 22);
-    g2.addEdge(11, 23);
-    g2.addEdge(12, 16);
-    g2.addEdge(12, 20);
-    g2.addEdge(13, 17);
-    g2.addEdge(13, 21);
-    g2.addEdge(14, 18);
-    g2.addEdge(14, 22);
-    g2.addEdge(15, 19);
-    g2.addEdge(15, 23);
-    g2.addEdge(16, 20);
-    g2.addEdge(17, 21);
-    g2.addEdge(18, 22);
-    g2.addEdge(19, 23);
     g2.printGraph();
     cout << "\nColoring of Graph 2 \n";
     std::clock_t    start;
@@ -75,7 +57,7 @@ int main(int argc, char *argv[])
     duration = ( std::clock() - start ) / (double) (CLOCKS_PER_SEC/1000);
     std::cout<<"printf: "<< duration <<'\n';
 
-}*/
+}
 // g2.LFRBitColoring();
 // g2.LFRBitColoring();*/
 //  std::list<std::string> fileList;
@@ -102,7 +84,7 @@ int main(int argc, char *argv[])
 
 
 */
-    std::clock_t start;
+  /*  std::clock_t start;
     double duration;
  int gSize = 10;
  Graph g(gSize);

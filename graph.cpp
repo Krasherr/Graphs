@@ -50,12 +50,12 @@ int Graph::getTmp(const vector<int> &color, const vector<int> &tmp, const int &V
 
 int Graph::getLFRBitTmp(const vector<int> &tmp, const int &V, const vector<int> &bitSize, const vector<int> &marked, const int &bitSizeMin)
 {
-    int max = 9999;
+    int max = -1;
     int max_i;
     for (int i =0; i < V; i++)
         if (bitSize[i] == bitSizeMin && marked[i]==bitSizeMin) { // jesli wezel jest niepokolorwany albo jest zaznaczony do dalszego kolorowania
             // oraz ilosc bitow potrzebnych do pokolorowania go jest mniejsza niz innych wezlow
-            if (tmp[i]<max) {
+            if (tmp[i]>max) {
                 max = tmp[i];
                 max_i = i;
             }
@@ -433,7 +433,7 @@ void Graph::LFRBitColoring()
             color[node]=1; //ustaw wezel jako pokolorowany
             uncolored--; //zmniejsz ilosc wezlow do pokolorwania
         } else {
-            colorBit[node][bitSize[node]] = 0; //przypisz bit 0 do wezla
+            colorBit[node][bitSize[node]] = 1; //przypisz bit 0 do wezla
             bitSize[node]=bitSize[node]+1; //zwieksz ilosc bitow potrzebnych do pokolorowania wezla o 1
             colorBit[node].resize( bitSize[node]+1);
         }

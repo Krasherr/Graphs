@@ -32,6 +32,7 @@ private slots:
     void addEdge();
     void MISGraph();
     void MISBitGraph();
+    void printGraph();
 };
 
 #endif // MAINWINDOW_H
