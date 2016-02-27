@@ -68,7 +68,6 @@ int MainWindow::getU()
 void MainWindow::createGraph()
 {
 
-
     QVector<QVector<QString>> extList = fl.createNodes(fl.getList());
     int index = 1;
     int key = 0;
@@ -77,7 +76,9 @@ void MainWindow::createGraph()
     int u = varU;
 
     for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it) {
-
+        for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
+            cout << itt->toStdString()<<endl;
+        }
         count = count + it->count();
 
     }
@@ -95,13 +96,31 @@ void MainWindow::createGraph()
                 for(QVector<QString>::iterator itttt = ittt->begin(); itttt != ittt->end(); ++itttt) {
 
                     std::cout << key1 << " : " << itttt->toStdString()<<endl;
-                    if (itt->mid(0,u)==itttt->mid(0,u)&&itt->mid(input,input+output)!=itttt->mid(input,input+output)) {
-                                             g.addEdge(key,key1);
+                    int xwe = 0;
+                    for (int i=1;i<=u;++i){
+                        if (itt->mid(i-1,1)!=itttt->mid(i-1,1)&&itt->mid(i-1,1)!="-"&&itttt->mid(i-1,1)!="-"){
+                            key1++;
+                            break;
 
-                        cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
-                    } else {
+                        } else if (i==u){
 
-                    } key1++;
+                            int f=0;
+                            for (int j=1; j<=output; ++j){
+                                if (itt->mid(input+j-1,1)==itttt->mid(input+j-1,1)||itt->mid(input+j-1,1)=="-"||itttt->mid(input+j-1,1)=="-"){
+                                    f++;
+                                }
+
+                            }
+                            if (f!=output) {
+                                g.addEdge(key,key1);
+                                key1++;
+                                cout << "krawedz pomiedzy nodem " << key << " a nodem " << key1 << endl;
+                            }  else {
+                                key1++;
+                        }
+
+                        }
+                    }
                 }
             }
             key++;

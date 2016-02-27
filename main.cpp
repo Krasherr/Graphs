@@ -17,16 +17,16 @@
 
 int main(int argc, char *argv[])
 {
-/*
+
          QApplication a(argc, argv);
          QTextStream out(stdout);
          MainWindow w;
          w.show();
 
          return a.exec();
-    }*/
+    }
 
-  Graph g2;
+/*  Graph g2;
     g2.setV(8);
     g2.printGraph();
     g2.addEdge(0, 1);
@@ -51,7 +51,9 @@ int main(int argc, char *argv[])
     cout << "\nColoring of Graph 2 \n";
     std::clock_t    start;
     start = std::clock();
-    g2.EqualBitColoring();
+    MaximumIndependentSet maxSet;
+
+    g2.MISColoring();
     double duration;
 
     duration = ( std::clock() - start ) / (double) (CLOCKS_PER_SEC/1000);

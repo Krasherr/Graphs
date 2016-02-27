@@ -234,6 +234,7 @@ void Graph::LFRColoring()
 
 void Graph::MISColoring()
 {
+    ofstream outfile ("maxcover.txt");
     MaximumIndependentSet maxSet;
     std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes(); //inicjalizacja lokalnej listy wezlow
     int numberOfNodes = getV();
@@ -262,8 +263,8 @@ void Graph::MISColoring()
     try {
     // glowna petla algorytmu
     while (uncolored>0) {
-
-                cover = maxSet.process(adjacentNodes, getV(), getV()); //wybor wezla
+                outfile << "start rundy" << endl;
+                cover = maxSet.process(adjacentNodes, getV(), getV(), outfile); //wybor wezla
                 for(node=0; node<cover.size(); node++) {
 
                     if(cover[node]==0 && color[node] == -1) {
@@ -648,6 +649,7 @@ void Graph::EqualBitColoring()
 
 void Graph::MISBitColoring()
 {
+    ofstream outfile ("maxcover.txt");
     std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes(); //stworzenie lokalnej listy sasiednich wezlow
     MaximumIndependentSet maxSet;
     int numberOfNodes=getV(); //stworzenie lokalnej zmiennej przetrzymujacej ilosc wezlow dostepnych w danej iteracji
@@ -678,7 +680,7 @@ void Graph::MISBitColoring()
     //glowna petla programu
     while (uncolored>0) {
 
-        cover = maxSet.process(adjacentNodes, getV(), getV());
+        cover = maxSet.process(adjacentNodes, getV(), getV(), outfile);
         for(node=0; node<cover.size(); node++) {
             if(cover[node]==0) {
                 cout<<node<<" ";

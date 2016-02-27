@@ -43,18 +43,18 @@ QVector<QVector<QString>> FileReader::createNodes(QList<QString> strList)
 
     for(int it = 0; it<strList.size(); it++) {
         QVector<QString> v;
-        if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0') {
+        if (strList.at(it)[0]=='1'||strList.at(it)[0]=='0'||strList.at(it)[0]=='-') {
             v.push_back(strList.at(it).mid(0,1));
-        } else if (strList.at(it)[0] == '-') {
+        } /*else if (strList.at(it)[0] == '-') {
             v.push_back("0");
             v.push_back("1");
-        } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'o') {
+        }*/ else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'o') {
             output = strList.at(it).mid(3,4).toInt();
         } else if (strList.at(it)[0] == '.' && strList.at(it)[1] == 'i') {
             input = strList.at(it).mid(3,4).toInt();
         }
         for (int i=1; i < strList.at(it).size(); ++i ) {
-            if (strList.at(it)[i] == '-') {
+            /*if (strList.at(it)[i] == '-') {
                 int size = v.size();
                 for (int j = 0; j < size; j++ )
                     v.push_back(v[j]);
@@ -67,7 +67,7 @@ QVector<QVector<QString>> FileReader::createNodes(QList<QString> strList)
                         c = "1";
                     v[j].append(c);
                 }
-            } else if (strList.at(it)[i] == '1' || strList.at(it)[i] == '0') {
+            } else*/ if (strList.at(it)[i] == '1' || strList.at(it)[i] == '0' || strList.at(it)[i] == '-') {
                 for (int j = 0; j <  v.size(); j++ ) {
                     v[j].append(strList.at(it).mid(i,1));
                 }
