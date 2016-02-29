@@ -74,7 +74,7 @@ void MainWindow::createGraph()
     int input = fl.getInput();
     int output = fl.getOutput();
     int u = varU;
-
+    int v = input - u;
     for (QVector<QVector<QString>>::iterator it = extList.begin(); it != extList.end(); ++it) {
         for(QVector<QString>::iterator itt = it->begin(); itt != it->end(); ++itt) {
             cout << itt->toStdString()<<endl;
@@ -97,12 +97,12 @@ void MainWindow::createGraph()
 
                     std::cout << key1 << " : " << itttt->toStdString()<<endl;
                     int xwe = 0;
-                    for (int i=1;i<=u;++i){
+                    for (int i=1;i<=v;++i){
                         if (itt->mid(i-1,1)!=itttt->mid(i-1,1)&&itt->mid(i-1,1)!="-"&&itttt->mid(i-1,1)!="-"){
                             key1++;
                             break;
 
-                        } else if (i==u){
+                        } else if (i==v){
 
                             int f=0;
                             for (int j=1; j<=output; ++j){

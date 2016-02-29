@@ -285,84 +285,9 @@ void Graph::MISColoring()
     }
 
 
-    //wypisz wartosci
-    for (u = 0; u < numberOfNodes; u++)
-        std::cout << "Vertex " << u << " --->  Color "
-                  << color[u] << std::endl;
-}
-
-void Graph::LFRColoring2()
-{
-    std::vector<std::vector<int>> adjacentNodes = getAdjacentNodes(); //inicjalizacja lokalnej listy wezlow
-    int numberOfNodes = getV();
-    int uncolored=numberOfNodes; //zmienna sluzaca do okreslenia ile wezlow zostalo do pokolorowania
-    int node, pos, cr, u;
-
-    //Tymczasowe tablice do przetrzymywania kolorow i wagi wezlow
-    vector<int> color, tmp;
-
-    // Tymczasowa tablica sluzaca do ustalenia czy dany kolor
-    // zostal uzyty do pokolorowania sasiedniego wezla
-    vector<bool> used(numberOfNodes);
-
-    vector<int>::iterator i;
-
-    for (u = 0; u<numberOfNodes; u++) {
-        int size = 0;
-        for (int j=0; j<numberOfNodes; j++) {
-            if (adjacentNodes[u][j]==1)
-                ++size;
-        }
-        tmp.push_back(size); //stworzenie listy przetrzymujacej ilosc sasiadow dla poszczegolnych wezlow
-        color.push_back(-1);
-        used[u] = false;
-    }
-
-    // glowna petla algorytmu
-    while (uncolored>0) {
-
-        node = getTmp(color, tmp, numberOfNodes); //wybor wezla
-
-
-
-        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {//iteracja po sasiednich wezlach
-            pos = i - adjacentNodes[node].begin();
-            if (color[pos] != -1 && *i==1) // czy kolor jest uzyty
-                used[color[pos]] = true; // zaznacz uzyty kolor
-        }
-
-        //wybierz pierwszy dostepny kolor
-        for (cr = 0; cr < numberOfNodes; cr++)
-            if ((cr==0 || isPowerOfTwo(cr)) && used[cr] == false) {
-                color[node] = cr;
-                break;
-            }
-
-        if (color[node] == -1) {
-            for (cr = 0; cr < numberOfNodes; cr++)
-                if (!isPowerOfTwo(cr) && used[cr] == false) {
-                    color[node] = cr;
-                    break;
-                }
-        }
-        //przypisz pierwszy wolny kolor do wezla
-        uncolored--;
-
-        // zresetuj wartosci dla kolejnej iteracji
-        for (i = adjacentNodes[node].begin(); i != adjacentNodes[node].end(); ++i) {
-            pos = i - adjacentNodes[node].begin();
-            if (color[pos] != -1 && *i==1)
-                used[color[pos]] = false;
-        }
-    }
-
-    //wypisz wartosci
-  /*  for (u = 0; u < numberOfNodes; u++)
-        std::cout << "Vertex " << u << " --->  Color "
-                  << color[u] << std::endl;*/
     graphToFile(color);
-
 }
+
 
 /*
  * Algorytm kolorowania bitowego LF
@@ -768,7 +693,7 @@ void Graph::MISBitColoring()
       cout << "Standard exception: " << e.what() << endl;
     }
 
-    graphToFile(colorBit, bitSize, bitSizeMin);
+    graphToFile(colorBit, bitSize, bitSizeMin-1);
     //wypisz wezly - kolory
     /*  V=getV();
       for (int u = 0; u < V; u++) {
