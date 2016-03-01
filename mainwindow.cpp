@@ -32,8 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_9, SIGNAL(clicked()),this, SLOT(MISGraph()));
     ui->pushButton_10->setText("Kolorowanie grafu MIS Bit");
     connect(ui->pushButton_10, SIGNAL(clicked()),this, SLOT(MISBitGraph()));
-    ui->pushButton_11->setText("Drukuj graf");
-    connect(ui->pushButton_10, SIGNAL(clicked()),this, SLOT(MISBitGraph()));
 }
 
 MainWindow::~MainWindow()
