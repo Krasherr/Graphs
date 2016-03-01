@@ -154,11 +154,7 @@ void Graph::GreedyColoring()
     }
 
     cout << allCombinations.size() << endl;
-    //wypisz wartosci
-    /*for (u = 0; u < numberOfNodes; u++)
-        std::cout << "Vertex " << u << " --->  Color "
-                  << color[u] << std::endl;*/
- //   graphToFile(color);
+
 }
 
 
@@ -648,7 +644,7 @@ void Graph::MISBitColoring()
                     continue;
                 }
 
-                colorBit[node][bitSize[node]] = 1; // Assign the found color
+                colorBit[node][bitSize[node]] = 1;
                 marked[node]++;
                 uncolored--;
 
@@ -714,6 +710,7 @@ void Graph::graphToFile(const vector<boost::dynamic_bitset<>> &colorBit,const ve
 
     int V = getV();
     for (int u = 0; u < V; u++) {
+        outfile << "Vertex " << u << " ---> ";
            for (int i = bitSizeMin; i>=0; i--)
                if(i>bitSize[u]) {
                    outfile << "-";

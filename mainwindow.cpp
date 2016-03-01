@@ -56,8 +56,9 @@ void MainWindow::handleButton()
 void MainWindow::inputText()
 {
     bool ok;
+    int max = fl.getInput();
     varU = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
-                                tr("Podaj liczbę:"), 25, 0, 100, 1, &ok);
+                                tr("Podaj liczbę:"), 0, 0, 100, 1, &ok);
 }
 
 int MainWindow::getU()
